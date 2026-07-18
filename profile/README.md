@@ -1,6 +1,6 @@
 > Hi!
 >
-> Open Waters is a community for mariners, developers, and ocean enthusiasts. Built through open collaboration, my hope is that this community can create better tools to understand and navigate the sea through open collaboration.
+> Open Waters is a community for mariners, developers, and ocean enthusiasts. My hope is that this community can create better tools to understand and navigate the sea through open collaboration.
 >
 > The ocean is a commons. We all depend on it, and we've all benefited from centuries of mariners, hydrographers, and scientists sharing what they learned. Open source works the same way: freely sharing what we build makes the tools better for everyone. Everything here is open, and contributions are welcome from anyone.
 >
