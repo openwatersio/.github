@@ -1,12 +1,13 @@
-# Open Waters
-
-Open source marine software and data — tools to understand and navigate the sea, built through open collaboration.
-
-Hi, I'm Brandon. I started Open Water Software as a home for projects related to marine software and data, hoping it grows into a community where mariners, developers, and ocean enthusiasts come together to build better tools for the sea.
-
-The ocean is a commons. We all depend on it, and we've all benefited from centuries of mariners, hydrographers, and scientists sharing what they learned. Open source works the same way: freely sharing what we build makes the tools better for everyone. Everything here is open, and contributions are welcome.
-
-Learn more at [openwaters.io](https://openwaters.io), or [get in touch](mailto:hello@openwaters.io).
+> Hi!
+>
+> Open Waters is a community for mariners, developers, and ocean enthusiasts. Built through open collaboration, my hope is that this community can create better tools to understand and navigate the sea through open collaboration.
+>
+> The ocean is a commons. We all depend on it, and we've all benefited from centuries of mariners, hydrographers, and scientists sharing what they learned. Open source works the same way: freely sharing what we build makes the tools better for everyone. Everything here is open, and contributions are welcome from anyone.
+>
+> Learn more at [openwaters.io](https://openwaters.io), or [get in touch](mailto:hello@openwaters.io). If you'd like to support the work, you can [sponsor me on GitHub](https://github.com/sponsors/bkeepers).
+>
+> Cheers! \
+> – @bkeepers
 
 ## 🌙 Tides
 
@@ -27,5 +28,3 @@ Learn more at [openwaters.io](https://openwaters.io), or [get in touch](mailto:h
 ## 🤝 Get involved
 
 Whether you're a developer, a mariner with domain knowledge, or someone who just loves the ocean, there's a place for you here. Browse the repos, open an issue, or [say hello](mailto:hello@openwaters.io).
-
-If you'd like to support the work, you can [sponsor me on GitHub](https://github.com/sponsors/bkeepers).
