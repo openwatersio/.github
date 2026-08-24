@@ -14,6 +14,7 @@
 - [neaps](https://github.com/openwatersio/neaps) — a tide prediction engine
 - [tide-database](https://github.com/openwatersio/tide-database) — a public database of tide harmonics
 - [signalk-tides](https://github.com/openwatersio/signalk-tides) — a SignalK plugin serving tidal predictions for your vessel's position
+- [slackwater-engine](https://github.com/openwatersio/slackwater-engine) — an offline tide & current prediction engine in Swift, ported from neaps
 
 ## 🗺️ Bathymetry
 
