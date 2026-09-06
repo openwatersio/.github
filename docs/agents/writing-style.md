@@ -4,7 +4,7 @@ Rules for prose in docs, READMEs, commit messages, pull requests, and issues acr
 
 ## Prose
 
-- Run all content intended for human consumption through `/humanizer` (https://github.com/blader/humanizer), not to hide that it's AI generated, but to make it easier for humans to read.
+- Run all content intended for human consumption through the [humanizer](https://github.com/blader/humanizer) skill, if your agent harness has it installed, not to hide that it's AI generated, but to make it easier for humans to read.
 - Never hard-wrap prose at a column width. Each paragraph and list item stays on one physical line; the editor soft-wraps it. Code blocks and genuinely intentional line breaks (CLI output, addresses) keep their newlines. Don't reflow existing wrapped files unless you're already editing them.
 - American English, unless a file or project already consistently uses British English.
 

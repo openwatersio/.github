@@ -20,9 +20,11 @@ permissions:
 steps:
   - uses: actions/setup-node@v7
     with:
-      node-version: "24" # npm >= 11.5.1 for trusted publishing
+      node-version: "24" # any Node whose bundled npm is >= 11.5.1 (required for trusted publishing)
       registry-url: https://registry.npmjs.org
 ```
+
+A workflow that creates a GitHub release or pushes tags needs `contents: write` instead of `contents: read`, and a changesets workflow also needs `pull-requests: write`.
 
 Register the exact repository and workflow filename as a trusted publisher for the package on npmjs.com. A new package needs one manual first publish, because npm can't configure a trusted publisher before the package exists.
 
