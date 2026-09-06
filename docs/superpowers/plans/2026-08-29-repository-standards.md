@@ -10,6 +10,40 @@
 
 **Spec:** `docs/superpowers/specs/2026-08-29-repository-standards-design.md`
 
+## Completion audit — 2026-09-06
+
+The implementation landed in [.github PR #3](https://github.com/openwatersio/.github/pull/3)
+and [station-metadata PR #21](https://github.com/openwatersio/station-metadata/pull/21).
+The checklist below records completed deliverables, including work landed before this audit.
+The maintainer confirmed the two settings unavailable to the connected browser. No package or
+test release was published for this audit.
+
+- **Compliant:** The standalone policy matches the approved design. At station-metadata commit
+  `1c273797ff6fefb6ec70bdb9bf9113f636d45769`, all required files and npm metadata are present;
+  npm checks are weekly and Actions checks monthly; all four action references have full SHAs
+  and version comments; CI installs, tests, and checks package contents; publishing grants
+  `contents: read` and `id-token: write` with no npm token or OTP. GitHub REST reads confirm all
+  API-visible repository defaults and both active rulesets (`21806159`, `21806162`), including `test`,
+  review-thread resolution, strict status checks, and organization-admin bypass. Vulnerability
+  alerts return HTTP 204 and automated security fixes are enabled and unpaused. Public npm
+  metadata for `@openwaters/station-metadata@5.2.0` has the apex homepage and SLSA provenance;
+  its [release workflow succeeded](https://github.com/openwatersio/station-metadata/actions/runs/33899413234).
+  `npm test` passed (271 passed, 2 skipped, 0 failed, TypeScript check passed);
+  `npm pack --dry-run --json --cache /private/tmp/openwaters-repository-standards-npm-cache`
+  passed with 34 intended package files; `git diff --check` passed.
+- **Changes made:** Added the missing GitHub topics from the package keywords: `tides`,
+  `currents`, `stations`, `noaa`, `chs`, `geocoding`, and `corrections`, then verified them with
+  a fresh API read. Recorded the organization-profile visibility exception in the policy.
+  The original file, merge-setting, and ruleset changes were already applied.
+- **Intentional tier-3 choices:** Keep zero required approvals, pull requests and passing CI,
+  immutable `v*` tags with creation allowed, and admin bypass. The expanded organization
+  project directory now lists the pilot; this is a visibility exception, not a tier promotion.
+- **Maintainer-confirmed settings:** On 2026-09-06, the maintainer confirmed that GitHub's
+  automatic closing of linked issues is enabled and npm's trusted publisher is
+  `openwatersio/station-metadata` with workflow `publish.yml`. These settings were confirmed
+  by the maintainer, not independently inspected in the browser, which was signed out.
+  No required audit item remains unconfirmed.
+
 ## Global Constraints
 
 - The standard is advisory: audits report differences and agents mutate nothing unless requested.
@@ -50,7 +84,7 @@
 - Consumes: the approved design specification.
 - Produces: one standalone policy that an agent can use to classify, create, or audit a repository without reading the design history.
 
-- [ ] **Step 1: Create the policy document**
+- [x] **Step 1: Create the policy document**
 
 Create `REPOSITORY_STANDARDS.md` with these sections and exact decisions from the spec:
 
@@ -75,7 +109,7 @@ approval counts, `v*` and `*@*` release-tag examples, Dependabot schedules, SHA 
 requirements, and the five-step agent audit flow. State that an unavailable API or permission is
 reported as **not verified**.
 
-- [ ] **Step 2: Check the policy against the approved design**
+- [x] **Step 2: Check the policy against the approved design**
 
 Run:
 
@@ -86,7 +120,7 @@ rtk git diff --check
 
 Expected: every listed policy term has a matching line and `git diff --check` exits 0.
 
-- [ ] **Step 3: Review the rendered structure**
+- [x] **Step 3: Review the rendered structure**
 
 Run:
 
@@ -96,7 +130,7 @@ rtk read REPOSITORY_STANDARDS.md
 
 Expected: the document stands alone, distinguishes advisory defaults from exceptions, and contains no enforcement-script instructions.
 
-- [ ] **Step 4: Commit the convention**
+- [x] **Step 4: Commit the convention**
 
 ```bash
 rtk git add REPOSITORY_STANDARDS.md
@@ -117,7 +151,7 @@ rtk git commit -m "Document shared repository standards"
 - Consumes: the npm and dependency schedules in `openwatersio/.github/REPOSITORY_STANDARDS.md`.
 - Produces: a weekly npm update schedule, monthly Actions update schedule, and npm package metadata pointing to the Open Waters apex.
 
-- [ ] **Step 1: Verify the current differences**
+- [x] **Step 1: Verify the current differences**
 
 Run:
 
@@ -128,7 +162,7 @@ rtk rg -n '"homepage"' package.json
 
 Expected: npm and GitHub Actions are both weekly, and `package.json.homepage` is `https://github.com/openwatersio/station-metadata#readme`.
 
-- [ ] **Step 2: Make the minimal file edits**
+- [x] **Step 2: Make the minimal file edits**
 
 Change only the GitHub Actions interval and package homepage:
 
@@ -145,7 +179,7 @@ Change only the GitHub Actions interval and package homepage:
 
 Keep npm's schedule `weekly` and preserve all other keys and ordering.
 
-- [ ] **Step 3: Run the repository checks**
+- [x] **Step 3: Run the repository checks**
 
 Run:
 
@@ -157,7 +191,7 @@ rtk git diff --check
 
 Expected: the test command exits 0, the dry run lists the intended package contents without publishing, and the diff check exits 0.
 
-- [ ] **Step 4: Inspect the exact diff**
+- [x] **Step 4: Inspect the exact diff**
 
 Run:
 
@@ -167,7 +201,7 @@ rtk git diff -- .github/dependabot.yml package.json
 
 Expected: exactly two value changes—`weekly` to `monthly` for Actions and the homepage URL.
 
-- [ ] **Step 5: Commit the tracked changes**
+- [x] **Step 5: Commit the tracked changes**
 
 ```bash
 rtk git add .github/dependabot.yml package.json
@@ -186,7 +220,7 @@ rtk git commit -m "Align repository metadata and dependency checks"
 - Consumes: repository-settings defaults from `REPOSITORY_STANDARDS.md`.
 - Produces: the tier-independent repository settings for the pilot.
 
-- [ ] **Step 1: Capture the current API-visible settings**
+- [x] **Step 1: Capture the current API-visible settings**
 
 Run:
 
@@ -196,7 +230,7 @@ rtk gh api repos/openwatersio/station-metadata --jq '{has_issues,has_projects,ha
 
 Expected before the update: projects are enabled, update-branch suggestions are disabled, and merge commits are enabled. Preserve the npm package URL already stored in GitHub's `homepage` field.
 
-- [ ] **Step 2: Apply the API-visible settings**
+- [x] **Step 2: Apply the API-visible settings**
 
 Run:
 
@@ -216,14 +250,14 @@ rtk gh api --method PATCH repos/openwatersio/station-metadata \
 
 Expected: HTTP 200 and a repository object containing the new values.
 
-- [ ] **Step 3: Enable automatic closing of linked issues**
+- [x] **Step 3: Enable automatic closing of linked issues**
 
 Open `https://github.com/openwatersio/station-metadata/settings` in the authenticated browser.
 Under the pull-request merge settings, enable **Automatically close linked issues when pull
 requests are merged**. GitHub's public repository REST response does not currently expose this
 setting reliably, so do not claim API verification for it.
 
-- [ ] **Step 4: Verify repository settings**
+- [x] **Step 4: Verify repository settings**
 
 Repeat the API query from Step 1 and inspect the auto-close checkbox in the repository settings UI.
 
@@ -243,7 +277,7 @@ auto-close checkbox on.
 - Consumes: tier 3 branch protection and single-package release-tag rules from `REPOSITORY_STANDARDS.md`.
 - Produces: effective `main` and `v*` rulesets with organization-admin bypass.
 
-- [ ] **Step 1: Resolve current ruleset IDs and save a read-only snapshot**
+- [x] **Step 1: Resolve current ruleset IDs and save a read-only snapshot**
 
 Run:
 
@@ -255,7 +289,7 @@ rtk gh api repos/openwatersio/station-metadata/rulesets/21806162
 
 Expected: `21806159` is `Protect main`; `21806162` is `Protect release tags`. If IDs differ, use the IDs returned by the first command and do not create duplicate rulesets.
 
-- [ ] **Step 2: Update Protect main**
+- [x] **Step 2: Update Protect main**
 
 Save this complete body as `/private/tmp/station-metadata-protect-main.json` using `apply_patch`:
 
@@ -309,7 +343,7 @@ Expected: HTTP 200. If Step 1 returned a different ID for `Protect main`, substi
 numeric ID. Do not create a duplicate ruleset or remove the `test` check, review-thread
 resolution, deletion rule, or force-push protection.
 
-- [ ] **Step 3: Update Protect release tags**
+- [x] **Step 3: Update Protect release tags**
 
 Save this complete body as `/private/tmp/station-metadata-protect-release-tags.json` using `apply_patch`:
 
@@ -342,7 +376,7 @@ rtk gh api --method PUT repos/openwatersio/station-metadata/rulesets/21806162 --
 Expected: HTTP 200. If Step 1 returned a different ID for `Protect release tags`, substitute that
 observed numeric ID. Do not create a duplicate ruleset.
 
-- [ ] **Step 4: Verify both effective rulesets**
+- [x] **Step 4: Verify both effective rulesets**
 
 Run:
 
@@ -365,7 +399,7 @@ Expected: both are active and contain organization-admin `always` bypass; `main`
 - Consumes: every deliverable from Tasks 1–4.
 - Produces: an evidence-backed compliance report with unobservable npm trusted-publisher state marked **not verified** unless checked by an authorized user.
 
-- [ ] **Step 1: Verify Dependabot security features**
+- [x] **Step 1: Verify Dependabot security features**
 
 Run:
 
@@ -376,7 +410,7 @@ rtk gh api repos/openwatersio/station-metadata/automated-security-fixes
 
 Expected: the vulnerability-alert endpoint returns HTTP 204 and automated security fixes report `enabled: true`. If either is disabled, enable it through the corresponding GitHub REST endpoint, then repeat the read.
 
-- [ ] **Step 2: Verify tracked policy and package changes**
+- [x] **Step 2: Verify tracked policy and package changes**
 
 Run in `/Users/clarkbw/src/openwaters/.github`:
 
@@ -404,7 +438,7 @@ Expected: both worktrees are clean after their task commits; npm is weekly; Acti
 the package homepage is the apex; every `uses:` line matches a 40-character SHA and version
 comment; the credential search has no matches; tests and package dry run exit 0.
 
-- [ ] **Step 3: Verify live metadata and rulesets**
+- [x] **Step 3: Verify live metadata and rulesets**
 
 Run:
 
@@ -416,7 +450,7 @@ rtk gh api repos/openwatersio/station-metadata/rulesets --jq '.[] | {id,name,tar
 
 Expected: GitHub homepage remains `https://www.npmjs.com/package/@openwaters/station-metadata`; issues on; projects and wikis off; branch deletion, auto-merge, and update suggestions on; merge commits off; squash and rebase on; squash title `PR_TITLE`; both rulesets active.
 
-- [ ] **Step 4: Report the audit**
+- [x] **Step 4: Report the audit**
 
 Report four short groups: compliant items, changes made, intentional tier-3 choices, and anything
 not verified. Specifically mark npm's trusted-publisher registration **not verified** unless its
