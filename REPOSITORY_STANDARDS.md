@@ -161,3 +161,7 @@ Do not publish a package or create a release merely to test publishing.
 Variance is expected when a repository has a concrete need. Record the reason in the audit or
 repository documentation. An exception does not silently redefine the baseline for other
 repositories.
+
+The organization profile lists `station-metadata` and `noaa-current-stations` as part of its
+broader project directory. These are visibility exceptions: both retain their explicitly
+recorded tier 3 status and zero required approvals.
