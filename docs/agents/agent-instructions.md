@@ -13,7 +13,7 @@ Don't duplicate content across the three files. When a harness-specific file nee
 Document what the repo actually does, not aspirations. A convention belongs in the doc because the code and CI enforce or practice it, not because it sounds good.
 
 - **Layout** — what each top-level directory is, one line each.
-- **Getting started** — the commands to install, build, test, and run locally, copy-pasteable. Pin tool versions in a manifest (`mise.toml`, `.tool-versions`) and have CI install from the same pin.
+- **Getting started** — the commands to install, build, test, and run locally, copy-pasteable. Pin the toolchain with [mise](https://mise.jdx.dev) (`mise.toml`) and have CI install from that same file, so local and CI run identical versions.
 - **Checks** — the exact commands CI runs, so a contributor can run them before pushing.
 - **Releases** — how each artifact ships and what triggers it.
 - **Gotchas** — traps that have cost real time, each entry stating what failure it prevents. These earn their place by having actually burned someone; don't write speculative warnings.

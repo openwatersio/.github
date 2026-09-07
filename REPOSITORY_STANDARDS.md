@@ -71,7 +71,8 @@ Use these defaults for every tier:
 - Auto-merge on.
 - Automatically delete merged head branches on.
 - Automatically close linked issues when a pull request merges on.
-- Squash and rebase merges allowed; merge commits disabled.
+- All three merge methods allowed. Squash a branch whose commits are incremental steps toward one
+  change; use a merge commit when the individual commit messages are history worth keeping.
 - Squash commits use the pull-request title as the commit title.
 
 ## Branch and release-tag rulesets
@@ -99,13 +100,14 @@ Repositories using GitHub Actions include `.github/dependabot.yml` with a monthl
 vulnerability alerts and security updates. A repository may group version updates when separate
 pull requests become noisy.
 
-Pin every third-party action to a full commit SHA with a version comment:
+Pin third-party actions to a full commit SHA with a version comment:
 
 ```yaml
-- uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+- uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
 ```
 
-Dependabot owns updates to those pins.
+GitHub-maintained `actions/*` may use a major version tag (`actions/checkout@v5`). Dependabot owns
+updates to both.
 
 ## npm packages and trusted publishing
 
@@ -149,7 +151,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
 - Issues, projects, wikis, merge methods, auto-merge, branch updates, branch deletion, and linked
   issue closing.
 - Effective default-branch and release-tag rulesets, including admin bypass.
-- Dependabot schedules, vulnerability alerts, security updates, and full-SHA action pins.
+- Dependabot schedules, vulnerability alerts, security updates, and third-party action pins.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
 
