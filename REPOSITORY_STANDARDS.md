@@ -97,8 +97,33 @@ Protect the pattern the repository actually releases:
 
 Repositories using GitHub Actions include `.github/dependabot.yml` with a monthly
 `github-actions` check. npm repositories also check npm dependencies weekly. Enable Dependabot
-vulnerability alerts and security updates. A repository may group version updates when separate
-pull requests become noisy.
+vulnerability alerts and security updates.
+
+Group each ecosystem's version updates into a single pull request, so a month of action bumps or a
+week of npm bumps arrives as one review rather than a dozen:
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      npm:
+        patterns: ["*"]
+```
+
+Add other ecosystems the repository actually builds, such as `gomod`, on the same shape: one entry,
+one group named for the ecosystem, matching every pattern. Keep the keys unquoted and leave
+`open-pull-requests-limit` at its default, since grouping is what holds the count down.
 
 Pin third-party actions to a full commit SHA with a version comment:
 
@@ -106,8 +131,15 @@ Pin third-party actions to a full commit SHA with a version comment:
 - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
 ```
 
-GitHub-maintained `actions/*` may use a major version tag (`actions/checkout@v5`). Dependabot owns
-updates to both.
+GitHub-maintained `actions/*` may use a major version tag. Dependabot owns updates to both.
+
+Write a new workflow against each action's current major. Copying a major from an older repository
+or from an example makes Dependabot's first run a stack of upgrade pull requests before the
+workflow has run once. Check the latest release when writing the `uses:` line:
+
+```sh
+gh api repos/actions/checkout/releases/latest --jq .tag_name
+```
 
 ## npm packages and trusted publishing
 
