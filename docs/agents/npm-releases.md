@@ -26,6 +26,8 @@ steps:
 
 A workflow that creates a GitHub release or pushes tags needs `contents: write` instead of `contents: read`, and a changesets workflow also needs `pull-requests: write`.
 
+If publishing needs a newer Node/npm version than test CI, document that release-only requirement in `CONTRIBUTING.md`. Local `mise.toml` versions follow the tested CI toolchain; document how to select the publishing versions when reproducing a release locally.
+
 Register the exact repository and workflow filename as a trusted publisher for the package on npmjs.com. A new package needs one manual first publish, because npm can't configure a trusted publisher before the package exists.
 
 Every package sets `publishConfig.access: public` and commits `package-lock.json`. [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md) lists the required `package.json` metadata fields and the CI checks packages run.
