@@ -28,7 +28,7 @@ When a CI toolchain or runner image changes, include the corresponding local `mi
 
 ## Retire completed specs and plans
 
-Release preparation is the checkpoint for retiring development specs and plans. Include this step in the repository's `CONTRIBUTING.md` release checklist. Review specs and plans created or updated since the previous release, along with any carried forward from earlier releases. A self-contained implementation PR can do the cleanup at merge time; the release review catches anything left over.
+Every release is a checkpoint for retiring development specs and plans, including Swift packages, apps, npm packages, and data artifacts, regardless of how the release is triggered. Include the shared [release preparation checklist](releases.md#release-preparation-checklist) in the repository's `CONTRIBUTING.md`. Review specs and plans created or updated since the previous release, along with any carried forward from earlier releases. A self-contained implementation PR can do the cleanup at merge time; the release review catches anything left over.
 
 Before deleting a spec or plan whose implementation is complete and merged:
 
