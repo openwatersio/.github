@@ -28,12 +28,18 @@ Tiers describe visibility and contribution posture, not engineering quality.
 
 Tier 3 is the default. Record tier 1 and tier 2 promotions here when they happen.
 
-| Repository | Tier |
-| --- | --- |
-| `neaps` | 1 |
-| `slackwater-engine` | 2 |
-| `noaa-current-stations` | 3 |
-| `station-metadata` | 3 |
+| Repository | Tier | Landing page |
+| --- | --- | --- |
+| `aiscast` | 1 | [openwaters.io/ais](https://openwaters.io/ais/) |
+| `almanac` | 1 | [openwaters.io/sky](https://openwaters.io/sky) |
+| `crowd-depth` | 1 | [openwaters.io/bathymetry](https://openwaters.io/bathymetry/crowd-depth) |
+| `neaps` | 1 | [openwaters.io/tides/neaps](https://openwaters.io/tides/neaps) |
+| `seamap` | 1 | [openwaters.io/charts/seamap](https://openwaters.io/charts/seamap/) |
+| `seascape` | 1 | [openwaters.io/charts/seascape](https://openwaters.io/charts/seascape) |
+| `slackwater-ios` | 1 | [slackwater.xyz](https://slackwater.xyz) |
+| `slackwater-engine` | 2 | — |
+| `noaa-current-stations` | 3 | — |
+| `station-metadata` | 3 | — |
 
 ## Required files
 

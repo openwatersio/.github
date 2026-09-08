@@ -11,7 +11,7 @@
 
 ## 🌙 Tides & Currents
 
-- [Slackwater](https://slackwater.xyz) — offline tide & current predictions for iPhone, Apple Watch, and widgets
+- [slackwater-ios](https://github.com/openwatersio/slackwater-ios) — [Slackwater](https://slackwater.xyz), offline tide & current predictions for iPhone, Apple Watch, and widgets
 - [slackwater-engine](https://github.com/openwatersio/slackwater-engine) — the open, offline tide & current engine behind Slackwater, in pure Swift
 - [neaps](https://github.com/openwatersio/neaps) — a tide prediction engine
 - [tide-database](https://github.com/openwatersio/tide-database) — a public database of tide harmonics
