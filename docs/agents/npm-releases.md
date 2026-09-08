@@ -32,6 +32,15 @@ Register the exact repository and workflow filename as a trusted publisher for t
 
 Every package sets `publishConfig.access: public` and commits `package-lock.json`. [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md) lists the required `package.json` metadata fields and the CI checks packages run.
 
+## Release preparation checklist
+
+Follow the [spec and plan cleanup convention](agent-instructions.md#retire-completed-specs-and-plans) before publishing:
+
+- [ ] Review specs and plans from this release cycle and any carried forward from earlier releases.
+- [ ] Preserve lasting guidance in maintained docs and user-facing changes in the changelog or release notes.
+- [ ] Delete completed, merged specs and plans; keep unfinished plans and update temporary roadmaps to show remaining work.
+- [ ] Have a human review the documentation updates and deletions in the release PR, or in a separate cleanup PR merged before a tag, release, or dispatch triggers publishing.
+
 ## Release flows in use
 
 Pick the one that matches the repo's shape; all four exist in the org today.
