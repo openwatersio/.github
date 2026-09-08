@@ -25,3 +25,15 @@ Point to GitHub issues for planned work rather than maintaining roadmap sections
 When CONTRIBUTING.md documents commands, CI should run those same entrypoints (for example, `bin/*` scripts used by both). If you change the build, update the doc, the scripts, and the workflow together.
 
 When a CI toolchain or runner image changes, include the corresponding local `mise.toml` update in the same change. For runner-provided tools, check the versions in the runner image when choosing the local pins.
+
+## Retire completed specs and plans
+
+Every release is a checkpoint for retiring development specs and plans, including Swift packages, apps, npm packages, and data artifacts, regardless of how the release is triggered. Include the shared [release preparation checklist](releases.md#release-preparation-checklist) in the repository's `CONTRIBUTING.md`. Review specs and plans created or updated since the previous release, along with any carried forward from earlier releases. A self-contained implementation PR can do the cleanup at merge time; the release review catches anything left over.
+
+Before deleting a spec or plan whose implementation is complete and merged:
+
+- Preserve lasting API contracts, constraints, rationale, and operational guidance in maintained documentation. Describe the current behavior without retaining step-by-step implementation instructions for work already built.
+- Record user-facing changes in the changelog or release notes.
+- Update temporary roadmaps to show only remaining work, with links to the relevant issues. Carry forward unfinished plans; age alone is not a reason to delete them.
+
+Include the documentation updates and completed spec or plan deletions in the release PR so a human can review what will remain. For releases triggered by a tag, GitHub release, or manual dispatch without a release PR, use a documentation cleanup PR reviewed and merged before publishing. Committed specs and plans remain available in Git history; they do not need to stay in the working tree for reference.

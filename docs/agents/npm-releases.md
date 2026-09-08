@@ -32,6 +32,8 @@ Register the exact repository and workflow filename as a trusted publisher for t
 
 Every package sets `publishConfig.access: public` and commits `package-lock.json`. [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md) lists the required `package.json` metadata fields and the CI checks packages run.
 
+Follow the shared [release preparation checklist](releases.md#release-preparation-checklist) before publishing.
+
 ## Release flows in use
 
 Pick the one that matches the repo's shape; all four exist in the org today.
