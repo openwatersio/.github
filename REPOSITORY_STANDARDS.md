@@ -106,7 +106,8 @@ Repositories using GitHub Actions include `.github/dependabot.yml` with a monthl
 vulnerability alerts and security updates.
 
 Group each ecosystem's version updates into a single pull request, so a month of action bumps or a
-week of npm bumps arrives as one review rather than a dozen:
+week of npm bumps arrives as one review rather than a dozen. Restrict each group to `minor` and
+`patch`, which leaves majors to arrive one at a time:
 
 ```yaml
 version: 2
@@ -117,6 +118,7 @@ updates:
       interval: monthly
     groups:
       actions:
+        update-types: ["minor", "patch"]
         patterns: ["*"]
   - package-ecosystem: npm
     directory: /
@@ -124,12 +126,24 @@ updates:
       interval: weekly
     groups:
       npm:
+        update-types: ["minor", "patch"]
         patterns: ["*"]
 ```
 
+A group is only worth reviewing if it is mergeable, and one major can make it permanently not.
+A single breaking dependency holds every routine bump hostage behind work that belongs on its own
+branch: `slackwater.xyz`'s first grouped run failed on a data package whose major doubled the
+prerendered corpus, and took a wrangler patch and two harmless bumps down with it. Ungrouped
+majors each get their own pull request, their own build, and their own decision.
+
 Add other ecosystems the repository actually builds, such as `gomod`, on the same shape: one entry,
-one group named for the ecosystem, matching every pattern. Keep the keys unquoted and leave
-`open-pull-requests-limit` at its default, since grouping is what holds the count down.
+one group named for the ecosystem, matching every pattern within minor and patch. Keep the keys
+unquoted and leave `open-pull-requests-limit` at its default, since grouping is what holds the
+count down.
+
+Specify every direct dependency as a range or a pin, never the `latest` tag. A `latest` specifier
+resolves to whatever shipped that day, so it fights any cooldown the repository sets and Dependabot
+proposes downgrades on a schedule. Scaffolding tools write `latest`; replace it on the first commit.
 
 Pin third-party actions to a full commit SHA with a version comment:
 
@@ -189,7 +203,8 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
 - Issues, projects, wikis, merge methods, auto-merge, branch updates, branch deletion, and linked
   issue closing.
 - Effective default-branch and release-tag rulesets, including admin bypass.
-- Dependabot schedules, vulnerability alerts, security updates, and third-party action pins.
+- Dependabot schedules, ecosystem groups restricted to minor and patch, vulnerability alerts,
+  security updates, third-party action pins, and the absence of `latest` specifiers.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
 
