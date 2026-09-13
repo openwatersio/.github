@@ -41,6 +41,8 @@ Tier 3 is the default. Record tier 1 and tier 2 promotions here when they happen
 | `noaa-current-stations` | 3 | — |
 | `station-metadata` | 3 | — |
 
+Landing pages live in [`openwatersio/openwaters.io`](https://github.com/openwatersio/openwaters.io) under `website/src/pages/`, not in the library repository: `neaps` is `tides/neaps.astro`, `aiscast` is `ais/index.astro`, and `almanac` is `sky/index.astro`. The library repository points at its page through its GitHub homepage URL. `slackwater-ios` is the exception, with its landing page in the `slackwater.xyz` repository.
+
 ## Required files
 
 Every repository tracks:
