@@ -4,7 +4,7 @@ How Open Waters packages are named and published to npm.
 
 ## Scope policy
 
-- **`@openwaters/*`** — general-purpose packages for the org (e.g. `@openwaters/seamap`, `@openwaters/seascape`). New packages default here.
+- **`@openwaters/*`** — general-purpose packages for the org (e.g. `@openwaters/seamap`, `@openwaters/seascape`). New packages default here. The GitHub org is `openwatersio`, but the npm scope is `@openwaters`; never create an `@openwatersio/*` package.
 - **`@neaps/*`** — the tide ecosystem only (`@neaps/tide-predictor`, `@neaps/cli`, `@neaps/api`, `@neaps/react`, `@neaps/tide-database`). Don't add non-tide packages to this scope.
 - **Unscoped** — For various reasons, an unscoped package may make more sense. Examples: `signalk-aiscast` (unwritten convention for many Signal K Plugins), `neaps` (meta package), `coordinate-format` (stand-alone utility).
 
@@ -28,7 +28,12 @@ A workflow that creates a GitHub release or pushes tags needs `contents: write` 
 
 If publishing needs a newer Node/npm version than test CI, document that release-only requirement in `CONTRIBUTING.md`. Local `mise.toml` versions follow the tested CI toolchain; document how to select the publishing versions when reproducing a release locally.
 
-Register the exact repository and workflow filename as a trusted publisher for the package on npmjs.com. A new package needs one manual first publish, because npm can't configure a trusted publisher before the package exists.
+Register the exact repository and workflow filename as a trusted publisher for the package on npmjs.com. A new package needs one manual first publish, because npm can't configure a trusted publisher before the package exists:
+
+1. Any member of the `@openwaters` npm org can create a package in the scope, so try the publish before asking an owner for access.
+2. Stage every verification step first, then ask for a one-time password and run `npm publish --otp=<code>` right away. Codes expire in about 30 seconds.
+3. Register the trusted publisher.
+4. Don't cut a GitHub release or tag for the hand-published version: a publish workflow triggered by it runs and fails on a version that already exists. The next patch release is the first through OIDC, as with `@openwaters/chs-constituents` (0.3.0 by hand, 0.3.1 through OIDC with provenance).
 
 Every package sets `publishConfig.access: public` and commits `package-lock.json`. [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md) lists the required `package.json` metadata fields and the CI checks packages run.
 
