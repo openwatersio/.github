@@ -41,7 +41,7 @@ Follow the shared [release preparation checklist](releases.md#release-preparatio
 
 ## Release flows in use
 
-Pick the one that matches the repo's shape; all four exist in the org today.
+Pick the one that matches the repo's shape.
 
 ### Changesets (multi-package monorepos)
 
@@ -50,6 +50,18 @@ Used by neaps. Every PR that changes published behavior includes a changeset (`n
 ### Tag-driven (a package inside a larger repo)
 
 Used by seamap for `@openwaters/seamap`. To release: bump `version` in the package's `package.json` per the repo's versioning policy, commit, then `git tag v<version> && git push origin main --tags`. The workflow verifies the tag matches the package version, runs the package's tests, publishes, and creates the GitHub release with generated notes.
+
+### Pull-request-gated tag release
+
+Used by almanac for its shared npm and Swift version. A release agent can run the mechanical path with a small model:
+
+1. Follow the repository's `CONTRIBUTING.md`, choose the next version under its versioning policy, and open a release pull request that updates the committed version source.
+2. Wait for required CI to pass, then merge the pull request through the default branch protections.
+3. Fetch `origin/main`, verify that the merged version matches a new release tag, create the tag at that exact merge commit, and push only that tag.
+4. Wait for the tag workflow to recheck the version, run release tests and consumer smoke tests, publish the tested npm artifact through OIDC with provenance, and create the GitHub release with generated notes.
+5. Verify that npm and GitHub show the new version before reporting the release complete.
+
+If CI or publishing fails, hand the release to a more capable model or a human. Never bypass checks, publish manually, or move or recreate a protected release tag.
 
 ### Release-driven with a tag prefix (several release tracks in one repo)
 
