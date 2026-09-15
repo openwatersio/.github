@@ -41,7 +41,7 @@ Follow the shared [release preparation checklist](releases.md#release-preparatio
 
 ## Release flows in use
 
-Pick the one that matches the repo's shape; all four exist in the org today.
+Pick the one that matches the repo's shape.
 
 ### Changesets (multi-package monorepos)
 
@@ -51,9 +51,9 @@ Used by neaps. Every PR that changes published behavior includes a changeset (`n
 
 Used by seamap for `@openwaters/seamap`. To release: bump `version` in the package's `package.json` per the repo's versioning policy, commit, then `git tag v<version> && git push origin main --tags`. The workflow verifies the tag matches the package version, runs the package's tests, publishes, and creates the GitHub release with generated notes.
 
-#### Almanac's agent-operated variant
+### Pull-request-gated tag release
 
-Almanac uses a release agent for its shared npm and Swift version. A small model can run the mechanical path:
+Used by almanac for its shared npm and Swift version. A release agent can run the mechanical path with a small model:
 
 1. Follow the repository's `CONTRIBUTING.md`, choose the next version under its versioning policy, and open a release pull request that updates the committed version source.
 2. Wait for required CI to pass, then merge the pull request through the default branch protections.
