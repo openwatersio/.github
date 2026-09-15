@@ -51,6 +51,18 @@ Used by neaps. Every PR that changes published behavior includes a changeset (`n
 
 Used by seamap for `@openwaters/seamap`. To release: bump `version` in the package's `package.json` per the repo's versioning policy, commit, then `git tag v<version> && git push origin main --tags`. The workflow verifies the tag matches the package version, runs the package's tests, publishes, and creates the GitHub release with generated notes.
 
+#### Almanac's agent-operated variant
+
+Almanac uses a release agent for its shared npm and Swift version. A small model can run the mechanical path:
+
+1. Follow the repository's `CONTRIBUTING.md`, choose the next version under its versioning policy, and open a release pull request that updates the committed version source.
+2. Wait for required CI to pass, then merge the pull request through the default branch protections.
+3. Fetch `origin/main`, verify that the merged version matches a new release tag, create the tag at that exact merge commit, and push only that tag.
+4. Wait for the tag workflow to recheck the version, run release tests and consumer smoke tests, publish the tested npm artifact through OIDC with provenance, and create the GitHub release with generated notes.
+5. Verify that npm and GitHub show the new version before reporting the release complete.
+
+If CI or publishing fails, hand the release to a more capable model or a human. Never bypass checks, publish manually, or move or recreate a protected release tag.
+
 ### Release-driven with a tag prefix (several release tracks in one repo)
 
 Used by ais for `signalk-aiscast`. Creating a GitHub release with a prefixed tag (`signalk-plugin-v1.2.3`) triggers a workflow that filters on the prefix, sets the package version from the tag, tests, and publishes. Other tags in the repo belong to other release tracks and are ignored.
