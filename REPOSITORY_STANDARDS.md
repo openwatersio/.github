@@ -100,6 +100,9 @@ Protect the pattern the repository actually releases:
 
 - Single-package repositories such as `station-metadata`: `v*`.
 - Independently versioned monorepos using Changesets, such as `neaps`: `*@*`.
+- A repository releasing on more than one namespace protects them all in one ruleset. `neaps`
+  ships npm packages on `*@*` and a SwiftPM package on `v*`, so its `protect-release-tags`
+  ruleset includes both patterns.
 
 ## Dependencies and GitHub Actions
 
