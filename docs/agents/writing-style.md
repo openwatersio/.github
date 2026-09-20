@@ -1,6 +1,6 @@
 # Writing style
 
-Rules for prose in docs, READMEs, commit messages, pull requests, and issues across Open Waters repos.
+Rules for prose in docs, READMEs, commit messages, pull requests, and issues across Open Waters repos, and in outbound email sent on behalf of Open Waters.
 
 ## Prose
 
