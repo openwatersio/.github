@@ -12,12 +12,11 @@
 ## 🌙 Tides & Currents
 
 - [slackwater-ios](https://github.com/openwatersio/slackwater-ios) — [Slackwater](https://slackwater.xyz), offline tide & current predictions for iPhone, Apple Watch, and widgets
-- [slackwater-engine](https://github.com/openwatersio/slackwater-engine) — the open, offline tide & current engine behind Slackwater, in pure Swift
-- [neaps](https://github.com/openwatersio/neaps) — a tide prediction engine
-- [tide-database](https://github.com/openwatersio/tide-database) — a public database of tide harmonics
+- [slackwater-android](https://github.com/openwatersio/slackwater-android) — Slackwater for Android
+- [slackwater](https://github.com/openwatersio/slackwater) — the tide and current prediction engine behind Slackwater, for TypeScript and Swift
+- [slackwater-database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
 - [station-metadata](https://github.com/openwatersio/station-metadata) — provider-neutral tide and current station identity, aliases, and corrected positions
 - [noaa-current-stations](https://github.com/openwatersio/noaa-current-stations) — NOAA CO-OPS tidal-current station data and the API's undocumented behaviour
-- [chs-constituents](https://github.com/openwatersio/chs-constituents) — harmonic constituents fitted for CHS current stations from IWLS predictions
 - [signalk-tides](https://github.com/openwatersio/signalk-tides) — a SignalK plugin serving tidal predictions for your vessel's position
 
 ## ☀️ Sun & Moon
@@ -40,11 +39,13 @@
 - [enc-tiles](https://github.com/openwatersio/enc-tiles) — tools to produce vector tiles from Electronic Navigational Charts
 - [chart-catalog](https://github.com/openwatersio/chart-catalog) — a catalog of freely redistributable electronic navigational charts, pre-baked as vector tiles
 - [tile-fonts](https://github.com/openwatersio/tile-fonts) — SDF glyph stacks for the Open Waters map styles
+- [maritime-zones](https://github.com/openwatersio/maritime-zones) — offline where-am-I and distance-to-territory lookups over the Marine Regions maritime boundaries, as FlatGeobuf tiles
 - [coordinate-format](https://github.com/openwatersio/coordinate-format) — a TypeScript library to format coordinates as DMS and other formats
 
 ## 🛰️ Services
 
 - [openwaters.io](https://github.com/openwatersio/openwaters.io) — the website
+- [slackwater.xyz](https://github.com/openwatersio/slackwater.xyz) — the Slackwater landing page
 - [status](https://github.com/openwatersio/status) — status page and uptime history for Open Waters services, live at [status.openwaters.io](https://status.openwaters.io)
 
 ## 🤝 Get involved
