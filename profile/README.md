@@ -12,12 +12,11 @@
 ## 🌙 Tides & Currents
 
 - [slackwater-ios](https://github.com/openwatersio/slackwater-ios) — [Slackwater](https://slackwater.xyz), offline tide & current predictions for iPhone, Apple Watch, and widgets
-- [neaps](https://github.com/openwatersio/neaps) — a tide prediction engine
-- [tide-database](https://github.com/openwatersio/tide-database) — a public database of tide harmonics
+- [slackwater-android](https://github.com/openwatersio/slackwater-android) — Slackwater for Android
+- [slackwater](https://github.com/openwatersio/slackwater) — the tide and current prediction engine behind Slackwater, for TypeScript and Swift
 - [slackwater-database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
 - [station-metadata](https://github.com/openwatersio/station-metadata) — provider-neutral tide and current station identity, aliases, and corrected positions
 - [noaa-current-stations](https://github.com/openwatersio/noaa-current-stations) — NOAA CO-OPS tidal-current station data and the API's undocumented behaviour
-- [chs-constituents](https://github.com/openwatersio/chs-constituents) — harmonic constituents fitted for CHS current stations from IWLS predictions
 - [signalk-tides](https://github.com/openwatersio/signalk-tides) — a SignalK plugin serving tidal predictions for your vessel's position
 
 ## ☀️ Sun & Moon
@@ -46,6 +45,7 @@
 ## 🛰️ Services
 
 - [openwaters.io](https://github.com/openwatersio/openwaters.io) — the website
+- [slackwater.xyz](https://github.com/openwatersio/slackwater.xyz) — the Slackwater landing page
 - [status](https://github.com/openwatersio/status) — status page and uptime history for Open Waters services, live at [status.openwaters.io](https://status.openwaters.io)
 
 ## 🤝 Get involved
