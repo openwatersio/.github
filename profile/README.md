@@ -40,6 +40,7 @@
 - [enc-tiles](https://github.com/openwatersio/enc-tiles) — tools to produce vector tiles from Electronic Navigational Charts
 - [chart-catalog](https://github.com/openwatersio/chart-catalog) — a catalog of freely redistributable electronic navigational charts, pre-baked as vector tiles
 - [tile-fonts](https://github.com/openwatersio/tile-fonts) — SDF glyph stacks for the Open Waters map styles
+- [maritime-zones](https://github.com/openwatersio/maritime-zones) — offline where-am-I and distance-to-territory lookups over the Marine Regions maritime boundaries, as FlatGeobuf tiles
 - [coordinate-format](https://github.com/openwatersio/coordinate-format) — a TypeScript library to format coordinates as DMS and other formats
 
 ## 🛰️ Services
