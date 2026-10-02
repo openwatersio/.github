@@ -12,9 +12,9 @@
 ## 🌙 Tides & Currents
 
 - [slackwater-ios](https://github.com/openwatersio/slackwater-ios) — [Slackwater](https://slackwater.xyz), offline tide & current predictions for iPhone, Apple Watch, and widgets
-- [slackwater-engine](https://github.com/openwatersio/slackwater-engine) — the open, offline tide & current engine behind Slackwater, in pure Swift
 - [neaps](https://github.com/openwatersio/neaps) — a tide prediction engine
 - [tide-database](https://github.com/openwatersio/tide-database) — a public database of tide harmonics
+- [slackwater-database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
 - [station-metadata](https://github.com/openwatersio/station-metadata) — provider-neutral tide and current station identity, aliases, and corrected positions
 - [noaa-current-stations](https://github.com/openwatersio/noaa-current-stations) — NOAA CO-OPS tidal-current station data and the API's undocumented behaviour
 - [chs-constituents](https://github.com/openwatersio/chs-constituents) — harmonic constituents fitted for CHS current stations from IWLS predictions
