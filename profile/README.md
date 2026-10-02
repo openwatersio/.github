@@ -25,7 +25,7 @@
 
 ## 📡 AIS
 
-- [aiscast](https://github.com/openwatersio/aiscast) — aiscast, the Open Waters AIS network: aisstream.io-compatible vessel traffic streams from open feeds and volunteer receivers
+- [Open Waters AIS](https://openwaters.io/ais/) — live vessel traffic from open government feeds and volunteer receivers: a [live map](https://openwaters.io/ais/vessels), aisstream.io-compatible streams, a REST API, and an MCP server. Contribute your receiver's data, or build on the [aiscast](https://github.com/openwatersio/aiscast) source and SignalK plugin
 
 ## 🗺️ Bathymetry
 
