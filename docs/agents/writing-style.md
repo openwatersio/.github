@@ -17,6 +17,14 @@ Exceptions:
 - a changelog, migration guide, or ADR whose purpose is history
 - a comment whose WHY genuinely requires the old behavior (a workaround for a bug that still ships, a compatibility shim) — name the constraint, not the change
 
+## Don't count our own things
+
+Never state how many of something we ship: "five read-only tools", "three chart styles", "the four supported datums". Adding one makes the sentence false, and the number is almost always next to the list it counts, so it tells the reader nothing they can't see. Name the things, or describe what they cover, and let the list be its own count.
+
+This is about inventories of our own features, not about facts with a source. Documented limits and measurements stay: "100 requests per minute", "at most 10 MMSIs", "the next seven days" when that is the API's default. So do figures about the outside world, as long as they say when they were checked — the way the comparison sections date their claims.
+
+The test is whether shipping one more of a thing would make the sentence wrong. If it would, drop the number.
+
 ## Commit messages
 
 - Imperative, plain-language subject lines that describe the change: "Show boat rentals on the chart", "Drop stale events from the stream".
