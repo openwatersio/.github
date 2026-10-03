@@ -110,9 +110,7 @@ Repositories using GitHub Actions include `.github/dependabot.yml` with a monthl
 `github-actions` check. npm repositories also check npm dependencies weekly. Enable Dependabot
 vulnerability alerts and security updates.
 
-Group each ecosystem's version updates into a single pull request, so a month of action bumps or a
-week of npm bumps arrives as one review rather than a dozen. Restrict each group to `minor` and
-`patch`, which leaves majors to arrive one at a time:
+Group each ecosystem's routine version updates into a single pull request, so a month of action bumps or a week of npm bumps arrives as one review rather than a dozen. Restrict the catch-all group to `minor` and `patch`, which leaves unrelated majors to arrive one at a time. Repositories using Vitest should group `vitest` and `@vitest/*` separately, including major updates:
 
 ```yaml
 version: 2
@@ -130,6 +128,11 @@ updates:
     schedule:
       interval: weekly
     groups:
+      vitest:
+        patterns: ["vitest", "@vitest/*"]
+      vitest-security:
+        applies-to: security-updates
+        patterns: ["vitest", "@vitest/*"]
       npm:
         update-types: ["minor", "patch"]
         patterns: ["*"]
@@ -138,8 +141,12 @@ updates:
 A group is only worth reviewing if it is mergeable, and one major can make it permanently not.
 A single breaking dependency holds every routine bump hostage behind work that belongs on its own
 branch: `slackwater.xyz`'s first grouped run failed on a data package whose major doubled the
-prerendered corpus, and took a wrangler patch and two harmless bumps down with it. Ungrouped
+prerendered corpus, and took a wrangler patch and two harmless bumps down with it. Unrelated
 majors each get their own pull request, their own build, and their own decision.
+
+Vitest is an exception because its coverage providers and other companion packages require compatible runner versions. Put the Vitest groups before any catch-all group: Dependabot uses the first matching group. Leave `update-types` unset on `vitest` so majors stay with their companions. The separate `vitest-security` rule applies to security updates; a version-update group does not cover them. Keep unrelated packages such as `vite` out of these groups. See the [Dependabot grouping reference](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#groups).
+
+Apply these rules in each repository's npm update entry, including entries for nested package directories. This recommendation is advisory; the organization `.github` repository does not supply an inherited Dependabot configuration. Verify the resulting dependency versions and lockfile, then run the repository's tests, including coverage or browser tests where configured. Grouping does not make a major upgrade compatible by itself.
 
 Add other ecosystems the repository actually builds, such as `gomod`, on the same shape: one entry,
 one group named for the ecosystem, matching every pattern within minor and patch. Keep the keys
