@@ -157,7 +157,7 @@ Specify every direct dependency as a range or a pin, never the `latest` tag. A `
 resolves to whatever shipped that day, so it fights any cooldown the repository sets and Dependabot
 proposes downgrades on a schedule. Scaffolding tools write `latest`; replace it on the first commit.
 
-Repositories that commit `package-lock.json` check it in CI on every pull request. A pull request can change what gets installed through the lockfile, and reviewers rarely read that diff. `npm ci` only checks the lockfile against `package.json`, and regenerating it keeps any existing `resolved` URL, so a tarball pointed at another host survives both. Run both of these checks, in a job that doesn't install dependencies first:
+JavaScript repositories use npm and commit `package-lock.json`, so CI, Dependabot, and the checks below work the same way in every repository. Check the lockfile in CI on every pull request. A pull request can change what gets installed through the lockfile, and reviewers rarely read that diff. `npm ci` only checks the lockfile against `package.json`, and regenerating it keeps any existing `resolved` URL, so a tarball pointed at another host survives both. Run both of these checks, in a job that doesn't install dependencies first:
 
 ```yaml
 - name: Check the lockfile regenerates from package.json
@@ -171,10 +171,12 @@ Repositories that commit `package-lock.json` check it in CI on every pull reques
 
 [lockfile-lint](https://www.npmjs.com/package/lockfile-lint) fails on a package resolved from another host or over plain HTTP, one without a sha512 integrity hash, and one whose tarball is named for a different package. Dependabot can't see a version inside a `run:` line, so bump the pin by hand, to a release that has been out at least two weeks.
 
+A dependency that installs another package under an npm alias, such as `"string-width-cjs": "npm:string-width@^4.2.0"`, fails the package-name check. Allow each alias the lockfile uses with `--allowed-package-name-aliases string-width-cjs:string-width`, and name the dependency that needs it in a comment beside the step.
+
 Pin third-party actions to a full commit SHA with a version comment:
 
 ```yaml
-- uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+- uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
 ```
 
 GitHub-maintained `actions/*` may use a major version tag. Dependabot owns updates to both.
