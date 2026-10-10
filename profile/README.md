@@ -9,23 +9,16 @@
 > Cheers! \
 > – @bkeepers
 
-## 🌙 Slackwater
+## 🌙 Tides & Currents
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/openwatersio/slackwater/main/brand/slackwater-logo-on-dark.svg">
-  <img alt="Slackwater" src="https://raw.githubusercontent.com/openwatersio/slackwater/main/brand/slackwater-logo-on-light.svg" height="48">
-</picture>
+Tide and current predictions, offline, on every platform, powered by the open [Slackwater](https://slackwater.xyz) prediction engine and station database.
 
-Tide and current predictions, offline, on every platform. Slackwater is the name for everything we publish about tides and currents, and it all runs on one open prediction engine. Read the docs at [openwaters.io/tides/slackwater](https://openwaters.io/tides/slackwater/).
-
-- [Slackwater for iPhone](https://slackwater.xyz) — the iOS app, with Apple Watch and widgets ([source](https://github.com/openwatersio/slackwater-ios))
-- [Slackwater for Android](https://github.com/openwatersio/slackwater-android) — the Android app
-- [slackwater](https://github.com/openwatersio/slackwater) — the prediction engine for TypeScript and Swift
-- [CLI](https://github.com/openwatersio/slackwater/tree/main/packages/cli) — predictions in your terminal: `brew install openwatersio/tap/slackwater`
-- [API](https://api.openwaters.io/tides/) — hosted HTTP API for [tides](https://api.openwaters.io/tides) and [currents](https://api.openwaters.io/currents)
-- [React components](https://github.com/openwatersio/slackwater/tree/main/packages/react) — tide predictions in your web app
-- [slackwater-database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
-- [signalk-tides](https://github.com/openwatersio/signalk-tides) — a SignalK plugin that publishes tide predictions for your vessel's position
+- [iOS](https://github.com/openwatersio/slackwater-ios) — iPhone, iPad & Apple Watch
+- [Android](https://github.com/openwatersio/slackwater-android) — the Android app
+- [Libraries](https://github.com/openwatersio/slackwater) — the prediction engine for TypeScript and Swift
+- [API](https://api.openwaters.io/tides/) — hosted HTTP API for tides and currents
+- [Database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
+- [Signal K Plugin](https://github.com/openwatersio/signalk-tides) — tide and current predictions for your vessel's position
 
 ## ☀️ Sun & Moon
 
