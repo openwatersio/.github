@@ -157,6 +157,20 @@ Specify every direct dependency as a range or a pin, never the `latest` tag. A `
 resolves to whatever shipped that day, so it fights any cooldown the repository sets and Dependabot
 proposes downgrades on a schedule. Scaffolding tools write `latest`; replace it on the first commit.
 
+Repositories that commit `package-lock.json` check it in CI on every pull request. A pull request can change what gets installed through the lockfile, and reviewers rarely read that diff. `npm ci` only checks the lockfile against `package.json`, and regenerating it keeps any existing `resolved` URL, so a tarball pointed at another host survives both. Run both of these checks, in a job that doesn't install dependencies first:
+
+```yaml
+- name: Check the lockfile regenerates from package.json
+  run: |
+    npm install --package-lock-only --ignore-scripts
+    git diff --exit-code -- package-lock.json
+
+- name: Check every package resolves from the npm registry
+  run: npx -y lockfile-lint@5.0.1 --path package-lock.json --allowed-hosts npm --validate-https --validate-integrity --validate-package-names
+```
+
+[lockfile-lint](https://www.npmjs.com/package/lockfile-lint) fails on a package resolved from another host or over plain HTTP, one without a sha512 integrity hash, and one whose tarball is named for a different package. Dependabot can't see a version inside a `run:` line, so bump the pin by hand, to a release that has been out at least two weeks.
+
 Pin third-party actions to a full commit SHA with a version comment:
 
 ```yaml
@@ -216,7 +230,8 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
   issue closing.
 - Effective default-branch and release-tag rulesets, including admin bypass.
 - Dependabot schedules, ecosystem groups restricted to minor and patch, vulnerability alerts,
-  security updates, third-party action pins, and the absence of `latest` specifiers.
+  security updates, third-party action pins, the absence of `latest` specifiers, and the CI
+  lockfile check.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
 
