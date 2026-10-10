@@ -11,13 +11,14 @@
 
 ## 🌙 Tides & Currents
 
-- [slackwater-ios](https://github.com/openwatersio/slackwater-ios) — [Slackwater](https://slackwater.xyz), offline tide & current predictions for iPhone, Apple Watch, and widgets
-- [slackwater-android](https://github.com/openwatersio/slackwater-android) — Slackwater for Android
-- [slackwater](https://github.com/openwatersio/slackwater) — the tide and current prediction engine behind Slackwater, for TypeScript and Swift
-- [slackwater-database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
-- [station-metadata](https://github.com/openwatersio/station-metadata) — provider-neutral tide and current station identity, aliases, and corrected positions
-- [noaa-current-stations](https://github.com/openwatersio/noaa-current-stations) — NOAA CO-OPS tidal-current station data and the API's undocumented behaviour
-- [signalk-tides](https://github.com/openwatersio/signalk-tides) — a SignalK plugin serving tidal predictions for your vessel's position
+Tide and current predictions, offline, on every platform, powered by the open [Slackwater](https://slackwater.xyz) prediction engine and station database.
+
+- [iOS](https://github.com/openwatersio/slackwater-ios) — iPhone, iPad & Apple Watch
+- [Android](https://github.com/openwatersio/slackwater-android) — the Android app
+- [Libraries](https://github.com/openwatersio/slackwater) — the prediction engine for TypeScript and Swift
+- [API](https://api.openwaters.io/tides/) — hosted HTTP API for tides and currents
+- [Database](https://github.com/openwatersio/slackwater-database) — a public database of tide and current stations
+- [Signal K Plugin](https://github.com/openwatersio/signalk-tides) — tide and current predictions for your vessel's position
 
 ## ☀️ Sun & Moon
 
