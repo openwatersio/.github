@@ -162,6 +162,7 @@ JavaScript repositories use npm and commit `package-lock.json`, so CI, Dependabo
 ```yaml
 - name: Check the lockfile regenerates from package.json
   run: |
+    git ls-files --error-unmatch package-lock.json
     npm install --package-lock-only --ignore-scripts
     git diff --exit-code -- package-lock.json
 
