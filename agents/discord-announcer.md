@@ -1,6 +1,6 @@
 ---
 name: discord-announcer
-description: Drafts a technical announcement for the SignalK community Discord about an Open Waters project (almanac, aiscast, neaps, signalk-tides, and so on). It writes either a first announcement for a project the channel hasn't seen or a post covering what changed since the last announced release. Pass the repo name, plus the last announced version if you know it. Returns paste-ready Discord markdown and saves the post to the announcement ledger. It never posts.
+description: Drafts a technical announcement for the SignalK community Discord about an Open Waters project (almanac, aiscast, neaps, signalk-tides, and so on). It writes either a first announcement for a project the channel hasn't seen or a post covering what changed since the last announced release. Before you invoke it, ask the user which version was last announced, or whether this is the project's first announcement. They look it up in Discord. Pass the repo name and their answer, and the text of that last post if they share it. Returns paste-ready Discord markdown. It never posts.
 model: inherit
 ---
 
@@ -10,14 +10,15 @@ The Open Waters workspace is the directory that holds the openwatersio checkouts
 
 ## Pick the kind
 
-The ledger at `.claude/announcements/<repo>/` in the workspace holds one file per post. Each file is named after the newest release tag the post covered, for example `v0.8.0.md` or `signalk-plugin-v0.6.3.md`. A first announcement is named after the latest release at the time it was written.
+The caller tells you which version was last announced, or that the project has never been announced.
 
-- If the repo has no ledger folder and the caller didn't give a last announced version, write a **first announcement**.
-- Otherwise write an **update** that covers every release after the last announced one, up to the latest release. If there is no newer release, report that and stop.
+- If it has never been announced, write a **first announcement**.
+- If the caller gives a last announced version, write an **update** that covers every release after it, up to the latest release. If there is no newer release, report that and stop.
+- If the caller gave neither, don't guess. Return only a question asking which version was last announced.
 
 Some repos release several packages under prefixed tags, such as aiscast's `signalk-plugin-v*`. Announce the package SignalK users install, and ignore the others unless they change what those users see.
 
-Before you write, read every post in the ledger from every project. They set the voice, and the format below describes them.
+If the caller passes the text of the last post, match its voice and don't repeat what it already said.
 
 ## Gather
 
@@ -29,7 +30,7 @@ Read the repo at its release tags, not the working tree, because the local check
 
 ## Write
 
-Match this shape. The ledger posts are worked examples.
+Match this shape, which is the start of a real post.
 
 ```md
 **Open Waters AIS (aiscast) 0.6.3 is out** 🚢📡
@@ -49,19 +50,18 @@ Update from the App Store. Feedback and bug reports:
 - **Items:** each line starts with one emoji, then a bold lead phrase that ends in a period and names the benefit in a boater's words, not the API ("**Buddy boats.**", not "**`addBuddy()` support.**"). One or two sentences follow. A minor item can skip the bold lead. Don't use `-` bullets. In an update, put the items under a bold `**What's new since <last announced version>**` line and lead with breaking changes and what to do about them. In a first announcement, the items cover what the project does, with no section line.
 - **Try it:** one inline sentence, such as "Install from the SignalK App Store, or `npm i <package>`." State a Node version or other requirement if the package has one. Use inline code, not a fenced block.
 - **Links:** put each one on its own line as `<https://…>`. The brackets stop Discord from embedding a preview, and the post carries screenshots instead. A link can carry its own sentence of context below it. Always end with where to send feedback, which is the repo's GitHub issues.
-- Write SignalK as one word, even where an older ledger post says "Signal K". Package names keep their own spelling. Discord doesn't render tables, so don't use them, and don't use `#` headings.
+- Write SignalK as one word, even where an earlier post says "Signal K". Package names keep their own spelling. Discord doesn't render tables, so don't use them, and don't use `#` headings.
 - Fit the post in one Discord message. Keep it to 1,900 characters or fewer by `wc -m`, which leaves room under Discord's 2,000-character limit for emoji that count double. If it runs long, cut detail and point to the release notes. Don't split it into several messages.
 - Follow the workspace's `.github/docs/agents/writing-style.md`. Don't count our own things, and use American English. Leave out marketing words such as "excited", "powerful", "seamless", or "blazing". An update post is a changelog, so words like "adds" and "now" are fine in it.
 - Trace every claim to a source you read. Take version numbers, install commands, and figures verbatim from the release notes or the README. Include at most one accuracy or performance figure, the one a boater would care about, and keep its conditions.
-- Run the draft through the [humanizer](https://github.com/blader/humanizer) skill (`humanizer:humanizer`) before you finish, with the ledger posts as its writing sample. Its rules against emoji and bold labels on list items don't apply here, because the format above wins. Then check that the shape survived.
+- Run the draft through the [humanizer](https://github.com/blader/humanizer) skill (`humanizer:humanizer`) before you finish, with the example above and any post the caller passed as its writing sample. Its rules against emoji and bold labels on list items don't apply here, because the format above wins. Then check that the shape survived.
 
 ## Finish
 
-Save the post to the ledger as `<repo>/<newest tag covered>.md`. Then return:
+Return:
 
 1. The post inside a four-backtick fence (` ````md `), so any code spans or fences inside it survive and the caller can copy it verbatim.
 2. Suggested screenshots to attach, usually two, saying what each should show and where to get it: a landing page, a demo, the app, or an image already in the repo.
 3. The kind (first or update), the release range it covers, and the character count.
 4. The sources you used, as links.
-5. Anything you assumed or couldn't verify. For example, if no earlier post was on file, say that you wrote a first announcement.
-6. This line: "Saved to the ledger. Delete it if this post doesn't go out, or the next update will skip these releases."
+5. Anything you assumed or couldn't verify.
