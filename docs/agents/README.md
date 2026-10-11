@@ -9,4 +9,4 @@ Individual repos link here from their `AGENTS.md`, `CLAUDE.md`, or `CONTRIBUTING
 - [releases.md](releases.md) — preparation checklist for every release, including Swift, apps, npm, and data artifacts
 - [npm-releases.md](npm-releases.md) — npm scope policy and how packages are published
 
-Procedural conventions also ship as [Agent Skills](https://agentskills.io) in [`skills/`](../../skills/) at the root of this repo. Repository tiers, GitHub settings, and the audit baseline live in [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md).
+Procedural conventions also ship as [Agent Skills](https://agentskills.io) in [`skills/`](../../skills/) at the root of this repo. Claude Code subagents live in [`agents/`](../../agents/). Each is plain markdown, so other harnesses can read one as instructions. Repository tiers, GitHub settings, and the audit baseline live in [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md).
