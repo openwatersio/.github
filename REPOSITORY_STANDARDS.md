@@ -33,15 +33,14 @@ Tier 3 is the default. Record tier 1 and tier 2 promotions here when they happen
 | `aiscast` | 1 | [openwaters.io/ais](https://openwaters.io/ais/) |
 | `almanac` | 1 | [openwaters.io/sky](https://openwaters.io/sky) |
 | `crowd-depth` | 1 | [openwaters.io/bathymetry](https://openwaters.io/bathymetry/crowd-depth) |
-| `neaps` | 1 | [openwaters.io/tides/neaps](https://openwaters.io/tides/neaps) |
 | `seamap` | 1 | [openwaters.io/charts/seamap](https://openwaters.io/charts/seamap/) |
 | `seascape` | 1 | [openwaters.io/charts/seascape](https://openwaters.io/charts/seascape) |
+| `slackwater` | 1 | [openwaters.io/tides/slackwater](https://openwaters.io/tides/slackwater/) |
+| `slackwater-android` | 1 | [slackwater.xyz](https://slackwater.xyz) |
+| `slackwater-database` | 1 | [openwaters.io/tides/database](https://openwaters.io/tides/database) |
 | `slackwater-ios` | 1 | [slackwater.xyz](https://slackwater.xyz) |
-| `slackwater-engine` | 2 | — |
-| `noaa-current-stations` | 3 | — |
-| `station-metadata` | 3 | — |
 
-Landing pages live in [`openwatersio/openwaters.io`](https://github.com/openwatersio/openwaters.io) under `website/src/pages/`, not in the library repository: `neaps` is `tides/neaps.astro`, `aiscast` is `ais/index.astro`, and `almanac` is `sky/index.astro`. The library repository points at its page through its GitHub homepage URL. `slackwater-ios` is the exception, with its landing page in the `slackwater.xyz` repository.
+Landing pages live in [`openwatersio/openwaters.io`](https://github.com/openwatersio/openwaters.io) under `website/src/pages/`, not in the library repository: `slackwater` is `tides/slackwater.astro`, `slackwater-database` is `tides/database.astro`, `aiscast` is `ais/index.astro`, and `almanac` is `sky/index.astro`. The library repository points at its page through its GitHub homepage URL. `slackwater-ios` and `slackwater-android` are the exception, with their landing page in the `slackwater.xyz` repository.
 
 ## Required files
 
@@ -98,9 +97,9 @@ The default branch:
 Release tags block updates and deletion while allowing new tags and repository-admin bypass.
 Protect the pattern the repository actually releases:
 
-- Single-package repositories such as `station-metadata`: `v*`.
-- Independently versioned monorepos using Changesets, such as `neaps`: `*@*`.
-- A repository releasing on more than one namespace protects them all in one ruleset. `neaps`
+- Single-package repositories such as `maritime-zones`: `v*`.
+- Independently versioned monorepos using Changesets, such as `slackwater`: `*@*`.
+- A repository releasing on more than one namespace protects them all in one ruleset. `slackwater`
   ships npm packages on `*@*` and a SwiftPM package on `v*`, so its `protect-release-tags`
   ruleset includes both patterns.
 
@@ -245,7 +244,3 @@ Do not publish a package or create a release merely to test publishing.
 Variance is expected when a repository has a concrete need. Record the reason in the audit or
 repository documentation. An exception does not silently redefine the baseline for other
 repositories.
-
-The organization profile lists `station-metadata` and `noaa-current-stations` as part of its
-broader project directory. These are visibility exceptions: both retain their explicitly
-recorded tier 3 status and zero required approvals.
