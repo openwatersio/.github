@@ -14,7 +14,7 @@ Document what the repo actually does, not aspirations. A convention belongs in t
 
 - **Layout** — what each top-level directory is, one line each.
 - **Getting started** — the commands to install, build, test, and run locally, copy-pasteable. CI defines the tested toolchain using GitHub Actions' native setup actions and runner-provided tools. Derive local [mise](https://mise.jdx.dev) tool versions in `mise.toml` from CI so contributors can reproduce that environment. Don't add mise to Actions merely to share a version file.
-- **Checks** — the exact commands CI runs, so a contributor can run them before pushing.
+- **Checks** — the exact commands CI runs, so a contributor can run them before pushing. Name them as [commands.md](commands.md) describes, with `npm run check` as the one command that runs them all.
 - **Releases** — how each artifact ships and what triggers it. Document release-only toolchain differences and why they are needed, such as a newer Node/npm version for [trusted publishing](npm-releases.md#trusted-publishing).
 - **Gotchas** — traps that have cost real time, each entry stating what failure it prevents. These earn their place by having actually burned someone; don't write speculative warnings.
 
