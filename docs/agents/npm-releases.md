@@ -18,15 +18,18 @@ permissions:
   id-token: write # npm trusted publishing + provenance
 
 steps:
-  - uses: actions/setup-node@v7
+  - uses: actions/checkout@v7
+  - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
     with:
-      node-version: "24" # any Node whose bundled npm is >= 11.5.1 (required for trusted publishing)
+      node-version-file: mise.toml
       registry-url: https://registry.npmjs.org
 ```
 
+The committed mise configuration must select a Node version whose bundled npm is at least 11.5.1 for trusted publishing, such as Node 24. Use the actual configuration path when it differs from `mise.toml`, and follow the shared [Node toolchain guidance](../../REPOSITORY_STANDARDS.md#node-toolchains). setup-node reads the Node pin only; a separately pinned npm version needs its own installation step.
+
 A workflow that creates a GitHub release or pushes tags needs `contents: write` instead of `contents: read`, and a changesets workflow also needs `pull-requests: write`.
 
-If publishing needs a newer Node/npm version than test CI, document that release-only requirement in `CONTRIBUTING.md`. Local `mise.toml` versions follow the tested CI toolchain; document how to select the publishing versions when reproducing a release locally.
+If publishing needs a newer Node/npm version than test CI, document that release-only requirement in `CONTRIBUTING.md`. Keep a fixed release-only Node pin in a separate committed mise configuration and select it with `node-version-file`. Document how to select the publishing versions when reproducing a release locally.
 
 Register the exact repository and workflow filename as a trusted publisher for the package on npmjs.com. A new package needs one manual first publish, because npm can't configure a trusted publisher before the package exists:
 
