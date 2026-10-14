@@ -13,7 +13,7 @@ Don't duplicate content across the three files. When a harness-specific file nee
 Document what the repo actually does, not aspirations. A convention belongs in the doc because the code and CI enforce or practice it, not because it sounds good.
 
 - **Layout** — what each top-level directory is, one line each.
-- **Getting started** — the commands to install, build, test, and run locally, copy-pasteable. CI defines the tested toolchain using GitHub Actions' native setup actions and runner-provided tools. Derive local [mise](https://mise.jdx.dev) tool versions in `mise.toml` from CI so contributors can reproduce that environment. Don't add mise to Actions merely to share a version file.
+- **Getting started** — the commands to install, build, test, and run locally, copy-pasteable. CI defines the tested toolchain using GitHub Actions' native setup actions and runner-provided tools. Share the ordinary Node pin between a committed [mise](https://mise.jdx.dev) configuration and `actions/setup-node` using `node-version-file: mise.toml`. Follow the shared [Node toolchain guidance](../../REPOSITORY_STANDARDS.md#node-toolchains) for Node-only repositories and Node-only jobs within mixed repositories. Derive other local tool versions from CI so contributors can reproduce that environment. Use a mise action only where the job needs tools or behavior beyond Node setup.
 - **Checks** — the exact commands CI runs, so a contributor can run them before pushing. Name them as [commands.md](commands.md) describes, with `npm run check` as the one command that runs them all.
 - **Releases** — how each artifact ships and what triggers it. Document release-only toolchain differences and why they are needed, such as a newer Node/npm version for [trusted publishing](npm-releases.md#trusted-publishing).
 - **Gotchas** — traps that have cost real time, each entry stating what failure it prevents. These earn their place by having actually burned someone; don't write speculative warnings.
@@ -24,7 +24,7 @@ Point to GitHub issues for planned work rather than maintaining roadmap sections
 
 When CONTRIBUTING.md documents commands, CI should run those same entrypoints (for example, `bin/*` scripts used by both). If you change the build, update the doc, the scripts, and the workflow together.
 
-When a CI toolchain or runner image changes, include the corresponding local `mise.toml` update in the same change. For runner-provided tools, check the versions in the runner image when choosing the local pins.
+When a CI toolchain or runner image changes, include the corresponding local mise configuration update in the same change. Ordinary Node jobs read the shared Node pin through `node-version-file`; document any compatibility matrix or release-only version separately. For runner-provided tools, check the versions in the runner image when choosing the local pins.
 
 ## Retire completed specs and plans
 

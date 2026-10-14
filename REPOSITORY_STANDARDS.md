@@ -189,6 +189,30 @@ workflow has run once. Check the latest release when writing the `uses:` line:
 gh api repos/actions/checkout/releases/latest --jq .tag_name
 ```
 
+### Node toolchains
+
+For Node-only repositories and Node-only jobs within mixed repositories, use `actions/setup-node` with `node-version-file` pointing at a committed mise configuration. This requires setup-node v7.1.0 or newer. Keep the Node version used for ordinary CI and local development in `mise.toml`:
+
+```toml
+[tools]
+node = "24"
+```
+
+```yaml
+- uses: actions/checkout@v7
+- uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+  with:
+    node-version-file: mise.toml
+```
+
+Choose the Node version the repository tests; `24` is an example. Add the configuration when a repository has none. If the repository uses `.mise.toml` or a configuration in a subdirectory, pass that actual path, relative to the checkout root. Checkout must run first. Omit `node-version` from the same step because it overrides `node-version-file`. Keep any required `cache`, `cache-dependency-path`, and `registry-url` settings.
+
+Use this format when a job needs only Node even if the repository's mise configuration also declares other tools. setup-node reads `[tools].node`; it does not install other tools, honor a separate npm pin, or run mise tasks or environment configuration. Use native setup actions or runner-provided tools for other toolchains. Keep `jdx/mise-action` where the job needs mise-managed tools or behavior, such as `flatc` in slackwater-database or `spreet` in seamap. Remove it when installing Node is its only purpose.
+
+Compatibility matrices may use explicit `node-version` inputs to exercise each supported version. A fixed release-only Node version can live in a separate committed mise configuration selected with `node-version-file`. Document toolchain differences and any separate npm installation in `CONTRIBUTING.md`; reading the ordinary development pin must not change a release requirement or narrow a compatibility test.
+
+See setup-node's [version-file documentation](https://github.com/actions/setup-node/blob/v7.1.0/docs/advanced-usage.md#node-version-file) and [v7.1.0 release](https://github.com/actions/setup-node/releases/tag/v7.1.0).
+
 ## npm packages and trusted publishing
 
 Commit `package-lock.json`. Include these `package.json` fields:
@@ -234,6 +258,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
 - Dependabot schedules, ecosystem groups restricted to minor and patch, vulnerability alerts,
   security updates, third-party action pins, the absence of `latest` specifiers, and the CI
   lockfile check.
+- Node setup through a committed mise version file, with documented compatibility and release exceptions; mise actions retained only where the job needs them.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
 
