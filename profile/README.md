@@ -51,4 +51,4 @@ Tide and current predictions, offline, on every platform, powered by the open [S
 
 ## 🤝 Get involved
 
-Whether you're a developer, a mariner with domain knowledge, or someone who just loves the ocean, there's a place for you here. Browse the repos, open an issue, [join the Discord](https://discord.gg/NeMyrYMGr), or [say hello](mailto:hello@openwaters.io).
+Whether you're a developer, a mariner with domain knowledge, or someone who just loves the ocean, there's a place for you here. Browse the repos, open an issue, [join the Discord](https://discord.gg/HTdZ4s9unG), or [say hello](mailto:hello@openwaters.io).
