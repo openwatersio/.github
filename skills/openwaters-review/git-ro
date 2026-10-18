@@ -13,12 +13,12 @@ shift
 for a in "$@"; do
   # git accepts unique prefixes of long options; shorter prefixes than these are ambiguous and git rejects them.
   case "$a" in
-    --ou*|--ext-*|--textc*|--no-ind*|--cont*|--ignore-revs*|-o*|-O*) echo "git-ro: option not allowed: $a" >&2; exit 2 ;;
+    --ou*|--ext-*|--textc*|--no-ind*|--cont*|--ignore-revs*|-o*|-O*|-[!-]*O*) echo "git-ro: option not allowed: $a" >&2; exit 2 ;;
     # Paths outside the worktree make git diff fall back to --no-index and read any file.
     /*|~*|..|../*|*/..|*/../*|*=/*|*=~*|*=../*) echo "git-ro: path outside the worktree not allowed: $a" >&2; exit 2 ;;
   esac
   if [ "$cmd" = blame ]; then
-    case "$a" in -S*) echo "git-ro: option not allowed: $a" >&2; exit 2 ;; esac
+    case "$a" in -S*|-[!-]*S*) echo "git-ro: option not allowed: $a" >&2; exit 2 ;; esac
   fi
 done
 excludes="$(git config --global --path --get core.excludesFile || true)"
