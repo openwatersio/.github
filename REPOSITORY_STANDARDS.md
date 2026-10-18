@@ -55,6 +55,10 @@ The organization `.github` repository may provide `SECURITY.md` or other default
 when Open Waters has an actual policy to state. Do not add placeholder policies. Inherited files
 do not replace the repository-specific files above.
 
+## Marketing skills
+
+Everyone working in Open Waters repositories uses the relevant [Marketing Skills](https://github.com/coreyhaines31/marketingskills) to assist with marketing work, including product positioning, landing pages, copy, SEO, App Store listings, launches, pricing, onboarding, and analytics. Agents apply the matching skills proactively when a task falls within their scope. Setup and usage live in [docs/agents/marketing.md](docs/agents/marketing.md); link that guidance from the repository's `CONTRIBUTING.md` alongside the other shared conventions.
+
 ## Repository metadata
 
 Every repository has a concise description and useful topics.
@@ -251,6 +255,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
 
 - Repository tier and organization README visibility.
 - Required local files.
+- Marketing skills guidance linked from `CONTRIBUTING.md`, and relevant skills used for marketing work. Installation on another contributor's machine is **not verified** unless checked there.
 - Description, topics, GitHub homepage, and npm homepage when applicable.
 - Issues, projects, wikis, merge methods, auto-merge, branch updates, branch deletion, and linked
   issue closing.
