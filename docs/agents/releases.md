@@ -35,10 +35,10 @@ A title that is only a version, such as `v0.8.0` or `signalk-aiscast 0.6.3`, sho
 - Open with a sentence or two on what is new and who it is for.
 - Put breaking changes and upgrade steps first.
 - List the changes people will notice, one per bullet, each linking its pull request.
-- Leave out chores, CI and test changes, refactors, bot dependency bumps, and commit hashes. Keep a dependency update when it matters to users: a new minimum Node, Swift, or OS version, a security fix, or a dependency they configure themselves.
+- Leave out chores, CI and test changes, refactors, bot dependency bumps, and commit hashes. Keep a dependency update when it matters to users, whoever opened its pull request: a new minimum Node, Swift, or OS version, a security fix, or a dependency they configure themselves. Rewrite a bot's pull request title into what changes for users, such as "Requires Node 24".
 - Use the product's names: Open Waters AIS for the service, `aiscast` only for the software. Write app notes for the people using the app, and library notes for developers.
 - Screenshots belong in the notes. The updates page copies images hosted on GitHub into the site.
-- Mark betas, release candidates, and nightlies as prereleases. The updates page shows only stable releases.
+- Mark betas, release candidates, and nightlies as prereleases. The updates page shows only stable releases, and leaves out a release whose notes hold nothing but chores and bot bumps.
 
 ### By release flow
 
