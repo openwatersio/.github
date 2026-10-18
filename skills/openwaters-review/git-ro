@@ -1,0 +1,23 @@
+#!/bin/sh
+# Read-only git for review agents: git-ro <diff|log|show|status|blame|ls-files> [args]
+# Ignores global and system config, keeps the global excludes file, and turns off --output, external diff, textconv, fsmonitor, and optional index locks, so a prompt-injected reviewer cannot write files or run configured programs.
+set -eu
+cmd="${1:-}"
+case "$cmd" in
+  diff|log|show) safe="--no-ext-diff --no-textconv" ;;
+  blame) safe="--no-textconv" ;;
+  status|ls-files) safe="" ;;
+  *) echo "git-ro: subcommand not allowed: ${cmd:-none}" >&2; exit 2 ;;
+esac
+shift
+for a in "$@"; do
+  # git accepts unique prefixes of long options; shorter prefixes than these are ambiguous and git rejects them.
+  case "$a" in
+    --ou*|--ext-*|--textc*) echo "git-ro: option not allowed: $a" >&2; exit 2 ;;
+  esac
+done
+excludes="$(git config --global --path --get core.excludesFile || true)"
+unset GIT_EXTERNAL_DIFF
+export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1 GIT_OPTIONAL_LOCKS=0
+# $safe is unquoted on purpose so it splits into separate flags.
+exec git --no-pager -c core.fsmonitor=false ${excludes:+-c "core.excludesFile=$excludes"} "$cmd" $safe "$@"
