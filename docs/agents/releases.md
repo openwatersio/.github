@@ -38,12 +38,13 @@ A title that is only a version, such as `v0.8.0` or `signalk-aiscast 0.6.3`, sho
 - Leave out chores, CI and test changes, refactors, bot dependency bumps, and commit hashes. Keep a dependency update when it matters to users, whoever opened its pull request: a new minimum Node, Swift, or OS version, a security fix, or a dependency they configure themselves. Rewrite a bot's pull request title into what changes for users, such as "Requires Node 24".
 - Use the product's names: Open Waters AIS for the service, `aiscast` only for the software. Write app notes for the people using the app, and library notes for developers.
 - Screenshots belong in the notes. The updates page copies images hosted on GitHub into the site.
-- Mark betas, release candidates, and nightlies as prereleases. The updates page shows only stable releases, and leaves out a release whose notes hold nothing but bot dependency bumps.
+- Mark betas, release candidates, and nightlies as prereleases. The updates page shows only stable releases.
+- The updates page drops lines that GitHub attributes to a bot (`by @dependabot[bot] in …`), and leaves out a release with nothing else in its notes. A bot's dependency update that matters to users stays once it is rewritten as an ordinary bullet.
 
 ### By release flow
 
 - **Written by hand** (the release form, or a notes file the workflow reads): write the title and notes as above before publishing.
-- **Generated notes:** add a [`.github/release.yml`](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes) that excludes bot authors and groups pull requests by label. Then edit the draft before publishing: replace the title, add the opening summary, and drop entries nobody using the project would notice.
+- **Generated notes:** add a [`.github/release.yml`](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes) that groups pull requests by label, with bot dependency updates in a category of their own at the end. Then edit the draft before publishing: replace the title, add the opening summary, rewrite any dependency update that matters to users as an ordinary bullet, and delete the rest of that category along with entries nobody using the project would notice.
 - **Changesets:** each changeset summary becomes a line in the notes, so write it for users. After the release workflow publishes, title the umbrella package's release: `gh release edit <package>@<version> --title "<headline>"`.
 - **Created by a workflow:** pass the headline as the release title instead of the tag, from a workflow input or the first line of the notes file.
 
