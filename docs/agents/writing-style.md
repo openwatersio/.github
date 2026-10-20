@@ -15,6 +15,7 @@ Anything durable — docs, READMEs, code, comments, issue and PR bodies — desc
 Exceptions:
 
 - a changelog, migration guide, or ADR whose purpose is history
+- a PR review summary that records review coverage, findings and follow-up verification
 - a comment whose WHY genuinely requires the old behavior (a workaround for a bug that still ships, a compatibility shim) — name the constraint, not the change
 
 ## Don't count our own things
@@ -45,5 +46,6 @@ The test is whether shipping one more of a thing would make the sentence wrong. 
 - Don't start with a heading (`# Summary`, `## Problem`). The first paragraph is obviously the summary.
 - Headings never have emdashes or parentheticals: "## Licensing", not "## Licensing — passes the gate".
 - Use checklists to track remaining tasks and progress.
+- Every PR body includes a `Review` section following the [review reporting requirements](../../skills/openwaters-review/SKILL.md#reporting-review-in-the-pr), including when no review completed.
 - As a PR evolves, update the original body to describe the current state of the code. A one-line note at the end ("_Updated to reflect x in commit deadbeef_") is fine but not always necessary.
 - A PR that changes committed generated data should say what the numbers went from and to, because a giant regenerated diff can't be reviewed any other way.
