@@ -31,5 +31,16 @@ Do not write your own review prompt. Change [review-prompt.md](review-prompt.md)
 - Do not dismiss a finding on your own judgment when it involves data or behavior you have not checked. Check it against the code or data first.
 - Run another round only when the last one led to a high or medium fix. Fix low findings when cheap and list the rest; they do not trigger a round. If a third round still finds high or medium issues, stop and bring the open findings to the user: the change is too large or was not mapped well enough.
 - Commit once the review is clean, so commits describe the change, not the review rounds.
-- Report what each reviewer found, what you fixed, and what you dismissed with the reason, to the user. Never in the PR body or commit messages.
+- Report what each reviewer found, what you fixed, and what you dismissed with the reason, to the user. Keep review history out of commit messages.
 - When a reviewer on the pull request (such as GitHub Copilot) finds something the local reviews missed, add the class of check to [review-prompt.md](review-prompt.md), so the miss does not repeat.
+
+## Reporting review in the PR
+
+Every PR description must include a `Review` section. Keep it current when creating or updating the PR, with:
+
+- Completed round counts and the reviewers/models in each round. List skipped or failed attempts separately; they are not completed reviews.
+- Main findings by reviewer or round, what was fixed, what was dismissed and why, and any unresolved findings.
+- Review limits, such as static-only inspection or restricted tool access, and verification run after fixes.
+- Changes made after the last model review, their verification, and whether another model review ran.
+
+If no review completed, say so and explain why. Summarize the extent of review actually performed rather than implying unperformed checks or approval.

@@ -9,7 +9,8 @@ The essentials:
 
 - Titles are concise and plain-language, written for the project's consumer, not the implementer: "Fix water appearing over land in the Great Lakes", not "Clamp great_lakes negative values under land".
 - Bodies never start with a heading — the first paragraph is the summary. Use checklists for progress; keep the body updated as the PR evolves.
-- Durable writing describes the current state only, never what changed or what came before. History belongs in commit messages.
+- Every PR body includes a `Review` section following the [review reporting requirements](../openwaters-review/SKILL.md#reporting-review-in-the-pr), including when no review completed.
+- Durable writing describes the current state only, except for PR review summaries that record review coverage, findings and follow-up verification. Other history belongs in commit messages.
 - Commit subjects are imperative and plain-language; the body explains why. Match the prefix style already in the repo's log.
 - Never hard-wrap prose at a column width.
 - Never put a `Claude-Session:` trailer or a claude.ai/code session URL in a commit message, PR, or issue. Most openwatersio repos are public, so a URL that is private to the account only leaks internal workflow, and a merged commit message can't be fixed without rewriting public history. Keep the `Co-Authored-By:` trailer.
