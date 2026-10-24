@@ -217,6 +217,10 @@ Compatibility matrices may use explicit `node-version` inputs to exercise each s
 
 See setup-node's [version-file documentation](https://github.com/actions/setup-node/blob/v7.1.0/docs/advanced-usage.md#node-version-file) and [v7.1.0 release](https://github.com/actions/setup-node/releases/tag/v7.1.0).
 
+### Swift toolchains
+
+Document whether CI uses runner-provided Swift, Xcode or mise, and keep local compiler pins compatible with the tested Linux and Apple environments. Follow [the shared Swift toolchain guidance](docs/agents/swift.md) when choosing pins, changing runners or installers, testing cold and warm caches, or repairing an incompatible installation. Compiler versions and test commands remain repository-specific.
+
 ## npm packages and trusted publishing
 
 Commit `package-lock.json`. Include these `package.json` fields:
@@ -264,6 +268,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
   security updates, third-party action pins, the absence of `latest` specifiers, and the CI
   lockfile check.
 - Node setup through a committed mise version file, with documented compatibility and release exceptions; mise actions retained only where the job needs them.
+- Swift compiler source, local pins and minimum mise version, with fresh-install evidence for installer or runner changes and documented Apple/platform coverage.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
 
