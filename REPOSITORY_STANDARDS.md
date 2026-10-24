@@ -204,7 +204,7 @@ node = "24"
 
 ```yaml
 - uses: actions/checkout@v7
-- uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+- uses: actions/setup-node@v7
   with:
     node-version-file: mise.toml
 ```
