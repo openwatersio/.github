@@ -249,9 +249,9 @@ A Changesets workflow may also write contents and pull requests. New packages re
 first publish because npm cannot configure a trusted publisher before the package exists. Then
 register the exact GitHub repository and workflow filename with npm.
 
-A single package may publish from a protected GitHub Release. An independently versioned
-monorepo may publish after its Changesets release pull request merges. No particular build
-system, Node `engines` value, or release tool is required.
+Use [reviewed-version publishing or Changesets](docs/agents/npm-releases.md#release-systems). Package versions and lockfile updates land through a pull request before publication. A tag push, published GitHub Release, or default-branch dispatch may select the reviewed commit. Independently versioned monorepos may use a Changesets version PR. Generated data releases may document a committed version floor and deterministic vintage rule instead of committing each released version.
+
+Publication never commits a version back to the default branch or moves or deletes a published release tag. Release automation uses the normal PR path without a branch or tag update bypass. Keep the repository-admin bypass for recovery. No particular build system, Node `engines` value, or release tool is required.
 
 ## Agent audit checklist
 
@@ -271,6 +271,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
 - Swift compiler source, local pins and minimum mise version, with fresh-install evidence for installer or runner changes and documented Apple/platform coverage.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
+- Documented release system, version source, trigger, source-commit selection, tag/version agreement, and any generated-data exception. Flag default-branch write-backs, published-tag updates or deletion, and release automation bypasses; verify that the workflow works with the effective branch and tag rules.
 
 Do not publish a package or create a release merely to test publishing.
 
