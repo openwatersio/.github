@@ -47,7 +47,8 @@ review() {
     codex)
       codex exec "$prompt" -s read-only --ephemeral -o "$out/codex.md" >"$out/codex.log" 2>&1 ;;
     copilot)
-      copilot -p "$prompt" -s --no-color \
+      # git-ro sits outside the worktree; without --add-dir Copilot's path check denies running it non-interactively.
+      copilot -p "$prompt" -s --no-color --add-dir "$dir" \
         --allow-tool "shell($gitro)" 'shell(ls)' 'shell(wc)' 'read' \
         --deny-tool 'write' >"$out/copilot.md" 2>"$out/copilot.log" ;;
     *)
