@@ -45,12 +45,6 @@ Tide and current predictions, offline, on every platform, powered by the open [S
 ## 🧭 Navigation
 
 - [maritime-zones](https://github.com/openwatersio/maritime-zones) — offline where-am-I and distance-to-territory lookups over the Marine Regions maritime boundaries, as FlatGeobuf tiles
-- [coordinate-format](https://github.com/openwatersio/coordinate-format) — a TypeScript library to format coordinates as DMS and other formats
-
-## 🧰 Tools
-
-- [tippecanoe](https://github.com/openwatersio/tippecanoe) — a Docker image of tippecanoe for building vector tilesets
-- [xtide](https://github.com/openwatersio/xtide) — a Docker image of XTide and its tide database utilities
 
 ## 🛰️ Services
 
