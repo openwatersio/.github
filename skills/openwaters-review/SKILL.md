@@ -32,7 +32,9 @@ Do not write your own review prompt. Change [review-prompt.md](review-prompt.md)
 - Run another round only when the last one led to a high or medium fix. Fix low findings when cheap and list the rest; they do not trigger a round. If a third round still finds high or medium issues, stop and bring the open findings to the user: the change is too large or was not mapped well enough.
 - Commit once the review is clean, so commits describe the change, not the review rounds.
 - Report what each reviewer found, what you fixed, and what you dismissed with the reason, to the user. Keep review history out of commit messages.
-- When a reviewer on the pull request (such as GitHub Copilot) finds something the local reviews missed, add the class of check to [review-prompt.md](review-prompt.md), so the miss does not repeat.
+- When a reviewer on the pull request (such as GitHub Copilot) finds something the local reviews missed, record the check so the miss does not repeat:
+  - If it depends on this project's data, stack, or domain, add it to the `Review checks` section of the repository's CONTRIBUTING.md, which every local reviewer reads.
+  - If it would apply to any project, find the class in [review-prompt.md](review-prompt.md) it belongs to and sharpen that class's wording or examples. Add a new class only when the miss fits none of them. Keep the prompt general: each class names a kind of defect, not one project's case.
 
 ## Reporting review in the PR
 
