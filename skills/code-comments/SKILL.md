@@ -20,4 +20,4 @@ description: Open Waters house rules for writing code comments — when to comme
 - Link tickets/issues for TODOs: `// TODO(#123): ...`. Use FIXME only for known-broken code.
 - Before commenting, try renaming/extracting so the code explains itself.
 - When editing existing code, delete comments the change makes stale or redundant.
-- Avoid repeating magic numbers that mirror values in the code.
+- Outside its source and the tests that pin it, never restate a value that is set elsewhere. Name the constant or link the doc that defines it. See [State each fact once](../../docs/agents/writing-style.md#state-each-fact-once).

@@ -1,6 +1,6 @@
 # Writing style
 
-Rules for prose in docs, READMEs, commit messages, pull requests, and issues across Open Waters repos, and in outbound email sent on behalf of Open Waters.
+Rules for prose in docs, READMEs, commit messages, pull requests, and issues across Open Waters repos, and in outbound email sent on behalf of Open Waters, plus where code and docs state the values they share.
 
 ## Prose
 
@@ -22,9 +22,21 @@ Exceptions:
 
 Never state how many of something we ship: "five read-only tools", "three chart styles", "the four supported datums". Adding one makes the sentence false, and the number is almost always next to the list it counts, so it tells the reader nothing they can't see. Name the things, or describe what they cover, and let the list be its own count.
 
-This is about inventories of our own features, not about facts with a source. Documented limits and measurements stay: "100 requests per minute", "at most 10 MMSIs", "the next seven days" when that is the API's default. So do figures about the outside world, as long as they say when they were checked — the way the comparison sections date their claims.
+This is about inventories of our own features, not about facts with a source. Documented limits and measurements stay in the one place that defines them: "100 requests per minute", "at most 10 MMSIs", "the next seven days" when that is the API's default. So do figures about the outside world, as long as they say when they were checked — the way the comparison sections date their claims. Each is written once, and everywhere else links there, as [State each fact once](#state-each-fact-once) describes.
 
 The test is whether shipping one more of a thing would make the sentence wrong. If it would, drop the number.
+
+## State each fact once
+
+A value that something else dictates, such as a limit, threshold, timeout, port, version, schedule, path, or format, has one source: a named constant or config key in code, or one section of one doc. Everything else refers to that source by name or link instead of repeating the value. This applies to code, comments, and docs alike.
+
+- Code uses the constant, not the literal: `MAX_CONNECTIONS`, not `5`. A value set by an outside system, such as an upstream API's rate limit, becomes a constant at the boundary with a link to the upstream doc.
+- Comments and docs say what the value does and point to where it is set: "Clients over the connection limit are refused (see [limits](docs/limits.md))", not "Clients that open more than 5 connections in 10 minutes are refused".
+- The source states the value, and why it is that value when that isn't obvious.
+- Text a reader can't follow a link from, such as an error message, CLI help, or an API description, reads the value from the source instead of typing it out.
+- Tests are the exception: they pin the value by hand. A test that reads the constant still passes when the constant is wrong.
+
+The test: if the value changed at its source, which files would need editing? Any file beyond the source and the tests that pin it holds a copy.
 
 ## Commit messages
 

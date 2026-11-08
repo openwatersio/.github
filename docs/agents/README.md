@@ -7,7 +7,7 @@ Individual repos link here from their `AGENTS.md`, `CLAUDE.md`, or `CONTRIBUTING
 - [agent-instructions.md](agent-instructions.md) — how repos document themselves for agents: one CONTRIBUTING.md, pointer files for the rest
 - [swift.md](swift.md) — Swift compiler selection, mise installation, runner validation and recovery
 - [commands.md](commands.md) — shared npm command names: `check`, `test`, and the `import`, `refresh:`, `report:` workspace verbs
-- [writing-style.md](writing-style.md) — prose, commit messages, and PR/issue conventions
+- [writing-style.md](writing-style.md) — prose, stating each fact once in code and docs, commit messages, and PR/issue conventions
 - [marketing.md](marketing.md) — required marketing skills, setup, and when to use them
 - [releases.md](releases.md) — preparation checklist and release notes for every release, including Swift, apps, npm, and data artifacts
 - [npm-releases.md](npm-releases.md) — npm scope policy and how packages are published
