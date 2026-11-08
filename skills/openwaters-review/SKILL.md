@@ -43,6 +43,7 @@ Every PR description must include a `Review` section. Keep it current when creat
 - Completed round counts and the reviewers/models in each round. List skipped or failed attempts separately; they are not completed reviews.
 - Main findings by reviewer or round, what was fixed, what was dismissed and why, and any unresolved findings.
 - Review limits, such as static-only inspection or restricted tool access, and verification run after fixes.
+- When a change affects which tests run, compare the job summary or test artifact with the suite the job is meant to cover. Report executed and skipped counts, and name missing cases when the change targets specific tests. Treat unexplained gaps as unresolved findings. Follow affected jobs through completion and update the PR with their results. Identify any suite left unverified by a failed or cancelled job.
 - Changes made after the last model review, their verification, and whether another model review ran.
 
 If no review completed, say so and explain why. Summarize the extent of review actually performed rather than implying unperformed checks or approval.
