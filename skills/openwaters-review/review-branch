@@ -1,6 +1,6 @@
 #!/bin/sh
-# Usage: review-branch [--claude] [base]   Run from the branch's worktree. Base defaults to origin/main.
-# Runs independent reviewers in parallel with review-prompt.md: Codex, Copilot, Claude Opus and Sonnet by default (first round), only Claude Opus and Sonnet with --claude (later rounds). Prints the report directory, then each reviewer's report path, or FAILED with its log. Reviewers whose CLI is not installed are skipped.
+# Usage: review-branch [--claude | --only=<reviewers>] [base]   Run from the branch's worktree. Base defaults to origin/main.
+# Runs independent reviewers in parallel with review-prompt.md: Codex, Copilot, Claude Opus and Sonnet by default (first round), only Claude Opus and Sonnet with --claude (later rounds), or the space-separated subset named by --only (codex, copilot, opus, sonnet). Prints the report directory, then each reviewer's report path, or FAILED with its log. Reviewers whose CLI is not installed are skipped.
 set -eu
 usage() { sed -n '2,3s/^# //p' "$0"; }
 reviewers="codex copilot opus sonnet"
@@ -8,6 +8,7 @@ base="origin/main"
 for a in "$@"; do
   case "$a" in
     --claude) reviewers="opus sonnet" ;;
+    --only=*) reviewers="${a#--only=}" ;;
     -h|--help) usage; exit 0 ;;
     -*) usage >&2; exit 2 ;;
     *) base="$a" ;;
