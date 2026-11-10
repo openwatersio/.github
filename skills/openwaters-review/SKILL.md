@@ -16,7 +16,7 @@ Map the system before writing code, not during review: every other writer and re
 Run the [`review-branch`](review-branch) script that sits in this skill's directory, with the branch's worktree as the current directory. It reviews the working tree against the merge base, committed or not, so a review round never needs a commit. It runs independent, read-only reviewers in parallel with [review-prompt.md](review-prompt.md). It prints the report directory first, then each reviewer's report path, or `FAILED` with the path to that reviewer's log.
 
 - The first round runs `review-branch`: Codex, Copilot, Claude Opus and Claude Sonnet.
-- Later rounds run `review-branch --claude`: Claude Opus and Sonnet only.
+- Later rounds run `review-branch --only="opus sonnet"`: Claude Opus and Sonnet only.
 - Reviewers whose CLI is not installed are skipped, and the script says so. Pass a base branch when it is not `origin/main`.
 - A round takes several minutes, often longer than a foreground command timeout. Run it in the background and wait for it to finish.
 - Do not edit the worktree while a round runs. The reviewers read the live files.
