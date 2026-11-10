@@ -1,7 +1,7 @@
 #!/bin/sh
 # Usage: review-branch [--only=<reviewers>] [base]   Run from the branch's worktree. Base defaults to origin/main.
 # Runs independent reviewers in parallel with review-prompt.md: Codex, Copilot, Claude Opus and Sonnet by default, or the space-separated subset named by --only (codex, copilot, opus, sonnet). Prints the report directory, then each reviewer's report path, or FAILED with its log. Reviewers whose CLI is not installed are skipped.
-set -eu
+set -efu
 usage() { sed -n '2,3s/^# //p' "$0"; }
 reviewers="codex copilot opus sonnet"
 base="origin/main"
@@ -13,6 +13,19 @@ for a in "$@"; do
     *) base="$a" ;;
   esac
 done
+selected=""
+for r in $reviewers; do
+  case "$r" in
+    codex|copilot|opus|sonnet) ;;
+    *) usage >&2; exit 2 ;;
+  esac
+  case " $selected " in
+    *" $r "*) ;;
+    *) selected="${selected:+$selected }$r" ;;
+  esac
+done
+[ -n "$selected" ] || { usage >&2; exit 2; }
+reviewers="$selected"
 git fetch -q origin 2>/dev/null || echo "review-branch: git fetch origin failed, using local refs" >&2
 mb="$(git merge-base "$base" HEAD)"
 out="$(mktemp -d /tmp/review-XXXXXX)"
