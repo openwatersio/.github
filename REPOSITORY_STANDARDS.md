@@ -221,6 +221,14 @@ See setup-node's [version-file documentation](https://github.com/actions/setup-n
 
 Document whether CI uses runner-provided Swift, Xcode or mise, and keep local compiler pins compatible with the tested Linux and Apple environments. Follow [the shared Swift toolchain guidance](docs/agents/swift.md) when choosing pins, changing runners or installers, testing cold and warm caches, or repairing an incompatible installation. Compiler versions and test commands remain repository-specific.
 
+### iOS projects
+
+Prefer a committed Xcode project using Apple's [native JSON project format](https://developer.apple.com/documentation/xcode/updating-your-xcode-project-configuration-file-format), `project.xcproj` inside the `.xcodeproj` bundle, for iOS apps and their watch and widget targets. Document a concrete reason in `CONTRIBUTING.md` when a repository uses XcodeGen or another project generator.
+
+Commit shared schemes, test plans, the app's `Package.resolved`, and any file-based Info.plist inputs. Keep user-specific Xcode state and build outputs ignored. Maintain source and resource membership for every affected target when adding or removing files, and build directly from the committed project in local scripts and CI.
+
+Use a committed mise configuration for development tool dependencies and their versions. Follow the [Node toolchain guidance](#node-toolchains) for sharing Node pins with CI and deciding when a mise action is needed. Swift Package Manager manages Swift package dependencies; mise manages development tools. Use the selected Xcode's Swift compiler and Apple SDKs for app builds, and document the tested Xcode version and selection in `CONTRIBUTING.md` and CI.
+
 ## npm packages and trusted publishing
 
 Commit `package-lock.json`. Include these `package.json` fields:
@@ -269,6 +277,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
   lockfile check.
 - Node setup through a committed mise version file, with documented compatibility and release exceptions; mise actions retained only where the job needs them.
 - Swift compiler source, local pins and minimum mise version, with fresh-install evidence for installer or runner changes and documented Apple/platform coverage.
+- iOS project format, documented generator exceptions, committed shared project inputs, and mise-managed development tools.
 - npm metadata, package lock, CI, package dry run, OIDC permissions, absence of npm credentials,
   and trusted-publisher registration.
 - Documented release system, version source, trigger, source-commit selection, tag/version agreement, and any generated-data exception. Flag default-branch write-backs, published-tag updates or deletion, and release automation bypasses; verify that the workflow works with the effective branch and tag rules.
