@@ -10,7 +10,7 @@ description: Open Waters house rules for writing code comments — when to comme
   - ✅ `// Offset by 1: the API is 1-indexed`
 - One line. Longer rationale goes in the commit message or a linked issue.
 - Place the comment on, directly above, or as close as possible to the exact line it explains.
-- Always comment: workarounds for external bugs, preconditions, "editing this breaks X",
+- Always comment: workarounds for external bugs (with the cause and a link to the upstream report), preconditions, "editing this breaks X",
   non-obvious regexes/math, code adapted from elsewhere (link the source).
 - Never comment: self-explanatory code, restating names, section headers.
 - Write for a reader with no history. Never reference how the code used to be

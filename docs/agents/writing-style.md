@@ -59,5 +59,6 @@ The test: if the value changed at its source, which files would need editing? An
 - Headings never have emdashes or parentheticals: "## Licensing", not "## Licensing — passes the gate".
 - Use checklists to track remaining tasks and progress.
 - Every PR body includes a `Review` section following the [review reporting requirements](../../skills/openwaters-review/SKILL.md#reporting-review-in-the-pr), including when no review completed.
+- Include `## Known limitations` and `## After merge` sections when the [rigor rules](rigor.md) call for them. The author runs the after-merge checks once the PR merges.
 - As a PR evolves, update the original body to describe the current state of the code. A one-line note at the end ("_Updated to reflect x in commit deadbeef_") is fine but not always necessary.
 - A PR that changes committed generated data should say what the numbers went from and to, because a giant regenerated diff can't be reviewed any other way.
