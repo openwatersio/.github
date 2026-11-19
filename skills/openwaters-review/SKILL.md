@@ -29,7 +29,7 @@ Do not write your own review prompt. Change [review-prompt.md](review-prompt.md)
 
 - Verify each finding before acting. Fix the real ones, look for the same class of bug elsewhere, and add a test that fails without the fix.
 - Do not dismiss a finding on your own judgment when it involves data or behavior you have not checked. Check it against the code or data first.
-- Run another round only when the last one led to a high or medium fix. Fix low findings when cheap and list the rest; they do not trigger a round. If a third round still finds high or medium issues, stop and bring the open findings to the user: the change is too large or was not mapped well enough.
+- Run another round only when the last one led to a high or medium fix. Fix low findings when cheap and list the rest; they do not trigger a round. If a third round still finds high or medium issues, stop and bring the open findings to the user, with the change as a draft pull request at most: the change is too large or was not mapped well enough.
 - Commit once the review is clean, so commits describe the change, not the review rounds.
 - Report what each reviewer found, what you fixed, and what you dismissed with the reason, to the user. Keep review history out of commit messages.
 - When a reviewer on the pull request (such as GitHub Copilot) finds something the local reviews missed, record the check so the miss does not repeat:
