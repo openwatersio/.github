@@ -5,13 +5,19 @@ description: Open Waters local code review before and during a pull request. Run
 
 # Code review
 
-Run the local review before a branch is first pushed as a PR, and decide for yourself when later changes need another one: run it without asking whenever new commits change behavior, data, or interfaces (new features, fixes, refactors, schema or format changes), whether they go on a new PR or an existing one. Skip it for changes that can't affect behavior, such as docs, comments, formatting, or a merge with no conflicts in code. Prompts and skill text that agents follow are behavior, not docs.
+Run the local review before a branch is first pushed as a PR, and decide for yourself when later changes need another one: run it whenever new commits change behavior, data, or interfaces (new features, fixes, refactors, schema or format changes), whether they go on a new PR or an existing one. Skip it for changes that can't affect behavior, such as docs, comments, formatting, or a merge with no conflicts in code. Prompts and skill text that agents follow are behavior, not docs. Obtain any authorization needed for external review before running, including for automatically triggered reviews; if it is missing, ask the user and record an unperformed review in the PR.
 
 ## Before writing code
 
 Map the system before writing code, not during review: every other writer and reader of the data, files, caches, and APIs the change will touch; all the data those paths can produce; the upgrade from what is deployed; and what the tests and validation data will leave out. Design the change against that map. The review checks the map; it is not where the change's reach gets discovered.
 
 ## Running a round
+
+For Open Waters repositories, an explicit request to run Open Waters review authorizes the review workflow for the requested scope, including sending the relevant diff and review context to OpenAI Codex, GitHub Copilot, and Anthropic Claude. The prompt also includes the PR title and body when available; later rounds or selected reviewers may contact a subset of these services. A review triggered by the skill still needs applicable authorization; do not treat the skill itself as a user request.
+
+Reviewers can read the live worktree, including ignored and untracked files, and Git history, including other refs and stashes. Codex and Copilot may be able to read outside the worktree, and other reviewers may also see outside file metadata. Reviewers can send material they read to their services. Check the worktree and relevant review context for secrets, private data, and unrelated material before running; a public repository can still contain private local material. If the check finds sensitive or unrelated material accessible to reviewers, isolate it safely before running, or stop and tell the user if isolation is not possible.
+
+When sandbox escalation is needed, identify the repository and its visibility, the intended review scope, and the destinations for that round, and mention the user's request or prior authorization. If escalation is denied by the user or automatic approval, stop and report the denial; do not bypass it.
 
 Run the [`review-branch`](review-branch) script that sits in this skill's directory, with the branch's worktree as the current directory. It reviews the working tree against the merge base, committed or not, so a review round never needs a commit. It runs independent, read-only reviewers in parallel with [review-prompt.md](review-prompt.md). It prints the report directory first, then each reviewer's report path, or `FAILED` with the path to that reviewer's log.
 
