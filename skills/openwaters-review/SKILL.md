@@ -22,7 +22,7 @@ Run the [`review-branch`](review-branch) script that sits in this skill's direct
 - Pass a base branch when it is not `origin/main`. Run a round in the background; it takes minutes.
 - Do not edit the worktree while a round runs. The reviewers read the live files.
 
-Read every report in full. A reviewer that failed or skipped its step 1 map has not reviewed the change. Run the round again only when fewer than two reviewers completed.
+Read every report in full. A reviewer that failed or skipped its step 1 map has not reviewed the change. Run the round again only when fewer than two reviewers completed. A round where the script reports it could not read the pull request hasn't fully reviewed the change either. The script needs `gh` installed and logged in; fix what stopped it and run the round again.
 
 Do not write your own review prompt. Change [review-prompt.md](review-prompt.md) instead, so every reviewer gets the same one.
 

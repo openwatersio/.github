@@ -10,7 +10,7 @@ SCRIPT = Path(__file__).with_name("review-branch")
 
 
 class ReviewerSelectionTest(unittest.TestCase):
-    def run_review(self, *args, prev=None):
+    def run_review(self, *args, prev=None, gh_err='no pull requests found for branch "x"'):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             for name, text in (prev or {}).items():
@@ -22,7 +22,7 @@ name="${0##*/}"
 printf '%s\\n' "$name $*" >> "$CALLS"
 case "$name" in
   git) case "$1" in merge-base) echo abc123 ;; rev-parse) echo tree0 ;; write-tree) echo tree2 ;; esac ;;
-  gh) exit 1 ;;
+  gh) printf '%s\\n' "$GH_ERR" >&2; exit 1 ;;
   mktemp) echo "$REPORTS" ;;
   codex)
     [ "$1" != --version ] || exit 0
@@ -38,7 +38,7 @@ esac
             reports.mkdir()
             calls = root / "calls"
             env = dict(os.environ, PATH=f"{root}:/usr/bin:/bin",
-                       CALLS=str(calls), REPORTS=str(reports))
+                       CALLS=str(calls), REPORTS=str(reports), GH_ERR=gh_err)
             result = subprocess.run(["sh", str(SCRIPT), *args], env=env,
                                     text=True, capture_output=True)
             self.round = (reports / "round").read_text() if (reports / "round").exists() else ""
@@ -123,6 +123,20 @@ esac
                     self.assertIn(f"/{reviewer}.md", result.stdout)
                 if args:
                     self.assertIn("git merge-base origin/develop HEAD", calls)
+
+
+    def test_pr_lookup_failure_is_not_read_as_no_pr(self):
+        result, calls = self.run_review("--only=opus")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("No pull request exists for this branch yet.", calls)
+        result, calls = self.run_review("--only=opus", gh_err="HTTP 401: Bad credentials")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertNotIn("No pull request exists", calls)
+        self.assertIn("could not be read", calls)
+        self.assertIn("was: HTTP 401: Bad credentials", calls)
+        self.assertIn("could not read the pull request", result.stderr)
+        result, calls = self.run_review("--only=opus", gh_err='warning: update available\nno pull requests found for branch "x"')
+        self.assertIn("No pull request exists for this branch yet.", calls)
 
 
 if __name__ == "__main__":
