@@ -47,7 +47,7 @@ Landing pages live in [`openwatersio/openwaters.io`](https://github.com/openwate
 Every repository tracks:
 
 - `README.md` with its purpose, use, development, and release basics.
-- `CONTRIBUTING.md` as the canonical project instructions for humans and coding agents alike: a link to the shared [rigor rules](docs/agents/rigor.md), layout, build, checks, releases, review checks, and gotchas. See [docs/agents/agent-instructions.md](docs/agents/agent-instructions.md).
+- `CONTRIBUTING.md` as the canonical project instructions for humans and coding agents alike: a link to the shared [rigor rules](https://github.com/openwatersio/.github/blob/main/docs/agents/rigor.md) by that absolute URL, layout, build, checks, releases, review checks, and gotchas. See [docs/agents/agent-instructions.md](docs/agents/agent-instructions.md).
 - `AGENTS.md` and `CLAUDE.md` as short pointers to `CONTRIBUTING.md`, so every agent harness finds it.
 - `LICENSE` when the repository is public.
 
