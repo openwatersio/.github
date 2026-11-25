@@ -47,7 +47,7 @@ Landing pages live in [`openwatersio/openwaters.io`](https://github.com/openwate
 Every repository tracks:
 
 - `README.md` with its purpose, use, development, and release basics.
-- `CONTRIBUTING.md` as the canonical project instructions for humans and coding agents alike: a link to the shared [rigor rules](https://github.com/openwatersio/.github/blob/main/docs/agents/rigor.md) by that absolute URL, layout, build, checks, releases, review checks, and gotchas. See [docs/agents/agent-instructions.md](docs/agents/agent-instructions.md).
+- `CONTRIBUTING.md` as the canonical project instructions for humans and coding agents alike: a link to the shared [rigor rules](https://github.com/openwatersio/.github/blob/main/docs/agents/rigor.md) by that absolute URL with what the project adds to them, layout, build, checks, releases, review checks, and gotchas. See [docs/agents/agent-instructions.md](docs/agents/agent-instructions.md).
 - `AGENTS.md` and `CLAUDE.md` as short pointers to `CONTRIBUTING.md`, so every agent harness finds it.
 - `LICENSE` when the repository is public.
 
@@ -267,7 +267,7 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
 
 - Repository tier and organization README visibility.
 - Required local files.
-- Rigor rules linked from `CONTRIBUTING.md` by absolute URL.
+- Rigor rules linked from `CONTRIBUTING.md` by absolute URL, with what [agent-instructions.md](docs/agents/agent-instructions.md) asks a project to add to them.
 - Marketing skills guidance linked from `CONTRIBUTING.md`, and relevant skills used for marketing work. Installation on another contributor's machine is **not verified** unless checked there.
 - Description, topics, GitHub homepage, and npm homepage when applicable.
 - Issues, projects, wikis, merge methods, auto-merge, branch updates, branch deletion, and linked

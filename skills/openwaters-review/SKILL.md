@@ -21,7 +21,7 @@ Run the [`review-branch`](review-branch) script that sits in this skill's direct
 - A round takes several minutes, often longer than a foreground command timeout. Run it in the background and wait for it to finish.
 - Do not edit the worktree while a round runs. The reviewers read the live files.
 
-Read every report in full. A failed reviewer, or one that skipped its step 1 map, has not reviewed the change; read its log and run the round again.
+Read every report in full. A failed reviewer, or one that skipped its step 1 map, has not reviewed the change; read its log and run the round again. A round where the script reports it could not read the pull request hasn't fully reviewed the change either. The script needs `gh` installed and logged in; fix what stopped it and run the round again.
 
 Do not write your own review prompt. Change [review-prompt.md](review-prompt.md) instead, so every reviewer gets the same one.
 
