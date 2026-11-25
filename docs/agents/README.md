@@ -4,6 +4,7 @@ Shared conventions for working in Open Waters repositories, written for both hum
 
 Individual repos link here from their `AGENTS.md`, `CLAUDE.md`, or `CONTRIBUTING.md`. Repo-specific instructions (build commands, architecture, gotchas) stay in each repo; only conventions shared across the org live here.
 
+- [rigor.md](rigor.md) — diagnose and fix causes instead of working around them, verify against reality, and finish the whole job
 - [agent-instructions.md](agent-instructions.md) — how repos document themselves for agents: one CONTRIBUTING.md, pointer files for the rest
 - [swift.md](swift.md) — Swift compiler selection, mise installation, runner validation and recovery
 - [iOS projects](../../REPOSITORY_STANDARDS.md#ios-projects) — native Xcode JSON projects, committed project inputs, and mise-managed development tools

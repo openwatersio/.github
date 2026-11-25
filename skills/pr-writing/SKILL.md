@@ -10,6 +10,7 @@ The essentials:
 - Titles are concise and plain-language, written for the project's consumer, not the implementer: "Fix water appearing over land in the Great Lakes", not "Clamp great_lakes negative values under land".
 - Bodies never start with a heading — the first paragraph is the summary. Use checklists for progress; keep the body updated as the PR evolves.
 - Every PR body includes a `Review` section following the [review reporting requirements](../openwaters-review/SKILL.md#reporting-review-in-the-pr), including when no review completed.
+- Include `## Known limitations` and `## After merge` sections when the [rigor rules](../../docs/agents/rigor.md) call for them.
 - Durable writing describes the current state only, except for PR review summaries that record review coverage, findings and follow-up verification. Other history belongs in commit messages.
 - Commit subjects are imperative and plain-language; the body explains why. Match the prefix style already in the repo's log.
 - Never hard-wrap prose at a column width.
