@@ -1,0 +1,14 @@
+{
+  "name": "openwaters",
+  "description": "Shared Open Waters skills and agents",
+  "owner": {
+    "name": "Open Waters"
+  },
+  "plugins": [
+    {
+      "name": "openwaters",
+      "source": "./",
+      "description": "Shared Open Waters skills and agents"
+    }
+  ]
+}
