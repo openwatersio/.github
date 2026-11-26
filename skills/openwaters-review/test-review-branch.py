@@ -53,6 +53,8 @@ esac
         self.assertEqual(self.round, "2\n")
         self.assertEqual(calls.count("diff tree1 tree2"), 2)
         self.assertEqual(calls.count("F1 a.py:3 unused: dismissed, no caller"), 2)
+        self.assertNotIn("An earlier round reviewed the whole change", calls)
+        self.assertIn("Coverage gaps remain open", calls)
         self.assertNotIn("codex ", calls)
         _, calls = self.run_review("--after=PREV", "--only=codex", prev=prev)
         self.assertIn("codex exec", calls)
@@ -64,6 +66,7 @@ esac
         self.assertIn("calendar rollback", calls)
         self.assertIn("focused follow-up", calls)
         self.assertEqual(self.focus, "calendar rollback\n")
+        self.assertEqual(self.round, "focus\n")
         for args, prev, reason in (
             (("--focus=",), {}, "nonempty"),
             (("--focus=calendar",), {}, "must be used together"),
@@ -72,6 +75,7 @@ esac
             (("--focus=calendar", "--focus-from=PREV"), {**original, "tree": "old"}, "worktree differs"),
             (("--focus=calendar", "--focus-from=PREV"), {**original, "base": "old"}, "merge base differs"),
             (("--after=PREV",), {**original, "focus": "calendar"}, "not a whole-change"),
+            (("--after=PREV",), {**original, "round": "focus"}, "not the report directory"),
         ):
             with self.subTest(args=args, prev=prev):
                 result, calls = self.run_review(*args, prev=prev)
@@ -81,7 +85,7 @@ esac
                 if reason == "merge base differs":
                     self.assertIn("run a full round", result.stderr)
                 if reason == "worktree differs":
-                    self.assertIn("review the gap on the current snapshot", result.stderr)
+                    self.assertIn("use a report for the current snapshot", result.stderr)
         _, calls = self.run_review("--only=codex")
         self.assertNotIn("focused follow-up", calls)
 
