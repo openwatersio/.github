@@ -15,3 +15,41 @@ Individual repos link here from their `AGENTS.md`, `CLAUDE.md`, or `CONTRIBUTING
 - [npm-releases.md](npm-releases.md) — npm scope policy and how packages are published
 
 Procedural conventions also ship as [Agent Skills](https://agentskills.io) in [`skills/`](../../skills/) at the root of this repo. Claude Code subagents live in [`agents/`](../../agents/). Each is plain markdown, so other harnesses can read one as instructions. Repository tiers, GitHub settings, and the audit baseline live in [REPOSITORY_STANDARDS.md](../../REPOSITORY_STANDARDS.md).
+
+## Install the shared skills
+
+The marketplace packages the skills for Claude Code, Codex, and GitHub Copilot CLI. The skills share their source files; individual instructions may depend on tools installed on your machine.
+
+### Claude Code
+
+In a Claude Code session:
+
+```text
+/plugin marketplace add openwatersio/.github
+/plugin install openwaters@openwaters
+```
+
+To receive updates automatically, open `/plugin`, select **Marketplaces**, choose **openwaters**, and enable auto-update. Changes load on the next launch, or in the current session with `/reload-plugins`.
+
+### Codex
+
+In a terminal, add the marketplace:
+
+```sh
+codex plugin marketplace add openwatersio/.github
+```
+
+In the Codex desktop app, open the Plugins directory, select the Open Waters marketplace, and install **openwaters**. To refresh the Git marketplace, run `codex plugin marketplace upgrade openwaters`; restart the desktop app to load updated files. Automatic refresh of Git marketplaces is not documented.
+
+### GitHub Copilot CLI
+
+In a Copilot CLI session:
+
+```text
+/plugin marketplace add openwatersio/.github
+/plugin install openwaters@openwaters
+```
+
+To enable session-start updates, set `autoUpdate` to `true` on the `openwaters` entry under `extraKnownMarketplaces` in `~/.copilot/settings.json`, preserving the source recorded when adding the marketplace. This applies to interactive and `-p` sessions; SDK and server sessions do not auto-update. See the [Copilot CLI plugin reference](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-plugin-reference).
+
+The plugin has no pinned version so Claude Code can detect updates from repository commits without a manual version bump. Claude Code also discovers the repository's `agents/`; the portable plugin installs the skills in Codex and Copilot CLI.
