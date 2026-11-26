@@ -7,7 +7,7 @@ asked. It is not an enforcement manifest.
 ## How to use this document
 
 1. Classify the repository. Use tier 3 unless promotion is explicit.
-2. Inspect its tracked files, metadata, workflows, Dependabot configuration, and Actions lockfile coverage.
+2. Inspect its tracked files, metadata, workflows, Dependabot configuration, Actions lockfile coverage, and the pins the lockfile does not cover.
 3. Inspect its live GitHub settings, security features, and effective rulesets.
 4. For npm packages, inspect the public package and confirm npm trusted-publisher settings when
    authorized. Public metadata alone cannot verify them.
@@ -177,19 +177,19 @@ JavaScript repositories use npm and commit `package-lock.json`, so CI, Dependabo
 
 A dependency that installs another package under an npm alias, such as `"string-width-cjs": "npm:string-width@^4.2.0"`, fails the package-name check. Allow each alias the lockfile uses with `--allowed-package-name-aliases string-width-cjs:string-width`, and name the dependency that needs it in a comment beside the step.
 
-Use [GitHub Actions workflow lockfiles](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles) for repositories with workflows. Use readable release tags for actions, preferably full version tags, and commit `.github/workflows/actions.lock`. The lockfile pins covered actions to commits, so their `uses:` references do not also need full SHAs:
+Use [GitHub Actions workflow lockfiles](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles) for repositories with workflows. Use readable release tags for actions, preferably full version tags, and commit `.github/workflows/actions.lock`. The lockfile pins covered actions to commits and the runner runs only the locked commits, so their `uses:` references do not also need full SHAs:
 
 ```yaml
 - uses: cloudflare/wrangler-action@v4.1.3
 ```
 
-Install `gh-actions-lock` with `gh extension install github/gh-actions-lock`. Add the [verification workflow](https://github.com/github/gh-actions-lock#quickstart), run `gh actions-lock` from the repository root to onboard all workflows, and commit its workflow changes and lockfile together. Run `gh actions-lock --verify` and require the verification check on pull requests where appropriate. Rerun the extension when adding workflows or changing `uses:` dependencies; Dependabot updates lockfile entries for onboarded workflows. Review changes to locked commits and repository identities, and never automate `--accept-moved`.
+Install `gh-actions-lock` with `gh extension install github/gh-actions-lock`. Add the [verification workflow](https://github.com/github/gh-actions-lock#quickstart), run `gh actions-lock` from the repository root to onboard all workflows, and commit its workflow changes and lockfile together. Onboard every workflow in the same change: verification fails for any workflow that uses an action without a lockfile entry. On first lock the extension narrows a major tag such as `v7` to the current full version tag unless `--no-narrow` is passed. Run `gh actions-lock --verify` and require the verification check on pull requests where appropriate. Rerun the extension when adding workflows or changing `uses:` dependencies; Dependabot regenerates the lockfile entry when it bumps an onboarded workflow's action, but does not onboard new workflows. Review changes to locked commits and repository identities, and never automate `--accept-moved`.
 
 The lockfile does not cover cross-repository reusable workflow calls or container images. Pin reusable workflow calls to a full commit SHA and container images to a digest; the repository defining a reusable workflow needs its own lockfile for its actions. Review local-action migration and Actions allowlists when onboarding. Follow the [extension's limitations](https://github.com/github/gh-actions-lock#limitations) and record any exceptions.
 
-Until a workflow is onboarded, pin third-party actions to a full commit SHA with a version comment; GitHub-maintained `actions/*` may use a major version tag. Dependabot manages action version updates.
+Until a repository is onboarded, pin third-party actions to a full commit SHA with a version comment; GitHub-maintained `actions/*` may use a major version tag. Dependabot manages action version updates.
 
-Write a new workflow against each action's current major. Copying a major from an older repository
+Write a new workflow against each action's current release. Copying a version from an older repository
 or from an example makes Dependabot's first run a stack of upgrade pull requests before the
 workflow has run once. Check the latest release when writing the `uses:` line:
 
@@ -278,8 +278,9 @@ Report each item as compliant, a deviation, an intentional exception, or **not v
   issue closing.
 - Effective default-branch and release-tag rulesets, including admin bypass.
 - Dependabot schedules, ecosystem groups restricted to minor and patch, vulnerability alerts,
-  security updates, Actions lockfile coverage and verification, the absence of `latest` specifiers,
-  and the npm lockfile check in CI.
+  security updates, Actions lockfile coverage and verification, SHA pins for reusable workflow
+  calls and for workflows in repositories not yet onboarded, container image digests, the absence
+  of `latest` specifiers, and the npm lockfile check in CI.
 - Node setup through a committed mise version file, with documented compatibility and release exceptions; mise actions retained only where the job needs them.
 - Swift compiler source, local pins and minimum mise version, with fresh-install evidence for installer or runner changes and documented Apple/platform coverage.
 - iOS project format, documented generator exceptions, committed shared project inputs, and mise-managed development tools.
