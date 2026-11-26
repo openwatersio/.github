@@ -42,6 +42,7 @@ esac
             result = subprocess.run(["sh", str(SCRIPT), *args], env=env,
                                     text=True, capture_output=True)
             self.round = (reports / "round").read_text() if (reports / "round").exists() else ""
+            self.focus = (reports / "focus").read_text() if (reports / "focus").exists() else ""
             return result, calls.read_text() if calls.exists() else ""
 
     def test_later_round_reviews_changes_since_the_last(self):
@@ -55,6 +56,34 @@ esac
         self.assertNotIn("codex ", calls)
         _, calls = self.run_review("--after=PREV", "--only=codex", prev=prev)
         self.assertIn("codex exec", calls)
+
+    def test_focus_requires_matching_snapshot_and_cannot_be_a_full_round(self):
+        original = {"tree": "tree2", "base": "abc123", "round": "1"}
+        result, calls = self.run_review("--only=codex", "--focus=calendar rollback", "--focus-from=PREV", prev=original)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("calendar rollback", calls)
+        self.assertIn("focused follow-up", calls)
+        self.assertEqual(self.focus, "calendar rollback\n")
+        for args, prev, reason in (
+            (("--focus=",), {}, "nonempty"),
+            (("--focus=calendar",), {}, "must be used together"),
+            (("--focus-from=PREV",), original, "must be used together"),
+            (("--focus=calendar", "--after=PREV"), {}, "cannot be combined"),
+            (("--focus=calendar", "--focus-from=PREV"), {**original, "tree": "old"}, "worktree differs"),
+            (("--focus=calendar", "--focus-from=PREV"), {**original, "base": "old"}, "merge base differs"),
+            (("--after=PREV",), {**original, "focus": "calendar"}, "not a whole-change"),
+        ):
+            with self.subTest(args=args, prev=prev):
+                result, calls = self.run_review(*args, prev=prev)
+                self.assertEqual(result.returncode, 2, result.stderr)
+                self.assertIn(reason, result.stderr)
+                self.assertNotIn("codex exec", calls)
+                if reason == "merge base differs":
+                    self.assertIn("run a full round", result.stderr)
+                if reason == "worktree differs":
+                    self.assertIn("review the gap on the current snapshot", result.stderr)
+        _, calls = self.run_review("--only=codex")
+        self.assertNotIn("focused follow-up", calls)
 
     def test_later_round_refused(self):
         ok = {"tree": "tree1", "base": "abc123", "round": "1", "findings.md": "F1 fixed\n"}

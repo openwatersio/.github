@@ -22,7 +22,9 @@ Run the [`review-branch`](review-branch) script that sits in this skill's direct
 - Pass a base branch when it is not `origin/main`. Run a round in the background; it takes minutes.
 - Do not edit the worktree while a round runs. The reviewers read the live files.
 
-Read every report in full. A reviewer that failed or skipped its step 1 map has not reviewed the change. Run the round again only when fewer than two reviewers completed. A round where the script reports it could not read the pull request hasn't fully reviewed the change either. The script needs `gh` installed and logged in; fix what stopped it and run the round again.
+Read every report in full. A reviewer that failed, skipped step 1, or reported a partial map has not completed its review. If fewer than two reviewers completed, resolve failures where possible and rerun failed reviewers; use focused follow-ups for partial maps instead of repeating an unchanged broad review. A round where the script reports it could not read the pull request hasn't fully reviewed the change either. The script needs `gh` installed and logged in; fix what stopped it and run the round again.
+
+When a map is partial, before editing the worktree use `review-branch --only=codex --focus="<specific unchecked paths and behavior>" --focus-from=<original report directory> <original base>` for a focused follow-up against the same base and unchanged worktree. Divide large gaps into bounded areas and check their interfaces; combine the reports without counting a focused follow-up as a whole-change review. If the worktree has changed, review the gap in a full round on the current snapshot or report it as a review limit; a later round that checks only fixes does not cover it. When a dependency matters, inspect an authorized local checkout at the exact version in use if accessible to the reviewer; otherwise report the gap. If it is unavailable or a gap remains, report the review limit; do not call the map complete. Repeating the same broad review does not address a scope or access limit.
 
 Do not write your own review prompt. Change [review-prompt.md](review-prompt.md) instead, so every reviewer gets the same one.
 
@@ -40,7 +42,7 @@ Do not write your own review prompt. Change [review-prompt.md](review-prompt.md)
 
 Every PR description must include a `Review` section. Keep it current when creating or updating the PR, with:
 
-- Completed round counts and the reviewers/models in each round. List skipped or failed attempts separately; they are not completed reviews.
+- Completed round counts and the reviewers/models in each round. List focused follow-ups and partial maps separately from completed whole-change rounds. List skipped or failed attempts separately; they are not completed reviews.
 - Main findings by reviewer or round, what was fixed, what was dismissed and why, and any unresolved findings.
 - Review limits, such as static-only inspection or restricted tool access, and verification run after fixes.
 - When a change affects which tests run, compare the job summary or test artifact with the suite the job is meant to cover. Report executed and skipped counts, and name missing cases when the change targets specific tests. Treat unexplained gaps as unresolved findings. Follow affected jobs through completion and update the PR with their results. Identify any suite left unverified by a failed or cancelled job.
